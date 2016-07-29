@@ -1,0 +1,12 @@
+# Use new trusty images, should yield newer compilers and packages
+sudo: required
+dist: precise
+language: cpp
+
+before_install:
+  - sudo apt-get update -qq
+
+script:
+  - mkdir build
+  - cd build
+  - cmake .. && make
