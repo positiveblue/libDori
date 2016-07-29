@@ -1,17 +1,11 @@
 
-template<typename T>
-class Hasher {
+template <typename T> class Hasher {
 
 private:
-    std::hash<T> hasher;
-    
-public:
-    
-    Hasher() {
-        hasher = std::hash<T>();
-    }
+  std::hash<T> hasher;
 
-    size_t hash(T& value) {
-        return hasher(value);
-    }
+public:
+  Hasher() { hasher = std::hash<T>(); }
+
+  size_t hash(T &value) { return hasher(value); }
 };
