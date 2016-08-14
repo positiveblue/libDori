@@ -10,7 +10,7 @@ addons:
     packages:
       - cmake
       - cmake-data
-      
+
 before_install:
   - sudo apt-get update -qq
 
