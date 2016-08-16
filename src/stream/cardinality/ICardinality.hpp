@@ -40,6 +40,11 @@ public:
     virtual std::size_t cardinality() = 0;
 
     /**
+     * How many elements has it processed
+     */
+    virtual std::size_t elementsOffered() = 0;
+
+    /**
      * Defautl destructor for ICardinality
      */
     virtual ~ICardinality(){};

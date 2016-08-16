@@ -2,7 +2,7 @@
 // Created by jordi on 8/13/2016.
 //
 
-#include "catch.h"
+#include "catch.hpp"
 
 unsigned int Factorial( unsigned int number ) {
     return number <= 1 ? number : Factorial(number-1)*number;

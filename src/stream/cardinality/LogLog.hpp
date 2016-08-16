@@ -60,9 +60,26 @@ class LogLog : public ICardinality<T> {
     int m;
     double Ca;
     int Rsum = 0;
-    std::vector<byte> M;
-    std::hash<int> hasher;
+    std::vector<std::size_t> M;
+    std::hash<std::size_t> hasher;
 
+
+    inline int getIndex(std::size_t hashedValue) {
+        hashedValue >> (sizeof(std::size_t) - k);
+    }
+
+    std::size_t getOffset(std::size_t bites){
+        int zeros = 1 << k;
+        return bites & (0xFFFFFFFFFFFFFFFF >> zeros);
+    }
+
+
+    int scan1(std::size_t bites) {
+        //TODO: Use bitwise algorithm to get the first one
+        std::size_t offset = getOffset(bites);
+        std::size_t aux = log2(offset);
+        return sizeof(std::size_t) - k - aux;
+    }
 
 public:
 
@@ -74,13 +91,14 @@ public:
         this.k = k;
         this.m = 1 << k;
         this.Ca = mAlpha[k];
-        this.M =  std::vector<byte> (m);
+        this.M =  std::vector<std::size_t> (m);
     }
 
     bool offerHashed(std::size_t hashedValue) {
         bool modified = false;
-        int j = hashedValue >> (sizeof(std::size_t) - k);
-        byte r = 0; //(byte) (Integer.numberOfLeadingZeros((hashedValue << k) | (1 << (k - 1))) + 1);
+
+        int j = getIndex(hashedValue);
+        std::size_t r =  scan1(hashValue);
         if (M[j] < r) {
             Rsum += r - M[j];
             M[j] = r;
@@ -98,15 +116,6 @@ public:
     boolean offer(T o) {
         std::size_t x =  hasher(o);
         return offerHashed(x);
-    }
-
-    /**
-    * Computes the position of the first set bit of the last Integer.SIZE-k bits
-    *
-    * @return Integer.SIZE-k if the last k bits are all zero
-    */
-    int rho(int x, int k) {
-        return 0; //Integer.numberOfLeadingZeros((x << k) | (1 << (k - 1))) + 1;
     }
 };
 
