@@ -9,7 +9,7 @@
 #include <math.h>         /* pow */
 #include <cstddef>        /* size_t */
 #include <functional>     /* hash */
-#include "ICardinality.h"
+#include "ICardinality.hpp"
 
 
 template <typename T>
