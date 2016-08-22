@@ -21,7 +21,7 @@ class LogLog : public ICardinality<T> {
      * N[With[{m = 2^Range[0, 31]},
      * m (Gamma[-1/m]*(1 - 2^(1/m))/Log[2])^-m], 14]]
      */
-    vector<double> mAlpha {
+    std::vector<double> mAlpha {
             0,
             0.44567926005415,
             1.2480639342271,
@@ -84,21 +84,21 @@ class LogLog : public ICardinality<T> {
 public:
 
     LogLog(int k) {
-        if (k >= (mAlpha.length - 1)) {
-            throw new IllegalArgumentException(String.format("Max k (%d) exceeded: k=%d", mAlpha.length - 1, k));
+        if (k >= (mAlpha.size() - 1)) {
+            throw std::string("Max k (%d) exceeded: k=%d", mAlpha.size() - 1, k);
         }
 
-        this.k = k;
-        this.m = 1 << k;
-        this.Ca = mAlpha[k];
-        this.M =  std::vector<std::size_t> (m);
+        this->k = k;
+        this->m = 1 << k;
+        this->Ca = mAlpha[k];
+        this->M =  std::vector<std::size_t> (m);
     }
 
     bool offerHashed(std::size_t hashedValue) {
         bool modified = false;
 
         int j = getIndex(hashedValue);
-        std::size_t r =  scan1(hashValue);
+        std::size_t r =  scan1(hashedValue);
         if (M[j] < r) {
             Rsum += r - M[j];
             M[j] = r;
@@ -113,7 +113,7 @@ public:
         return (long) (Ca * pow(2, Ravg));
     }
 
-    boolean offer(T o) {
+    bool offer(T o) {
         std::size_t x =  hasher(o);
         return offerHashed(x);
     }

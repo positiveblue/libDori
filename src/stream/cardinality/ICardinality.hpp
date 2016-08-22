@@ -21,18 +21,10 @@ public:
     /**
      * Offer the value as a hashed long value
      *
-     * @param hashedLong - the hash of the item to offer to the estimator
-     * @return false if the value returned by cardinality() is unaffected by the appearance of hashedLong in the stream
-     */
-    virtual bool offerHashed(long hashedLong) = 0;
-
-    /**
-     * Offer the value as a hashed long value
-     *
      * @param hashedInt - the hash of the item to offer to the estimator
      * @return false if the value returned by cardinality() is unaffected by the appearance of hashedInt in the stream
      */
-    virtual bool offerHashed(int hashedInt) = 0;
+    virtual bool offerHashed(std::size_t hashedInt) = 0;
 
     /**
      * @return the number of unique elements in the stream or an estimate thereof
