@@ -1,11 +1,5 @@
 
-#Setting headers for tests
-set(TEST_HEADERS ${TEST_HEADERS} "include")
+add_executable(tests  tests_main.cpp StreamGen.cpp ../stream/cardinality/Cardinality.hpp)
 
-#Inclueding headers, such as Catch... into the project
-include_directories(${TEST_HEADERS})
-
-
-#Compile tests
-set(TEST_SOURCES "tests_main.cpp")
-add_executable(tests ${TEST_SOURCES})
+#target_link_libraries(tests)
+#﻿install_targets(/tests/cpp/ tests)
