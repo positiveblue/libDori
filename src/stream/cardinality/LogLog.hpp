@@ -10,6 +10,8 @@
 #include <cstddef>        /* size_t */
 #include <functional>     /* hash */
 #include "ICardinality.hpp"
+#include "../../hash/Hasher.hpp"
+#include <iostream>
 
 
 template <typename T>
@@ -56,51 +58,88 @@ class LogLog : public ICardinality<T> {
             852576365.81999
     };
 
-    int k;
-    int m;
+    /**
+     * Number of bits used as bucket index.
+     */
+    std::uint8_t k;
+
+    /**
+     * Number of elements that has been offered (not distinct elements!!)
+     */
+    std::uint64_t n;
+
+    /**
+     * m represent the number of “small bytes” of auxiliary memory (number of buckets)
+     * m = 1 << k
+     */
+    std::uint32_t m;
+
     double Ca;
+
+    /**
+     * Keep the sum of all the buckets, always updated.
+     */
     int Rsum = 0;
-    std::vector<std::size_t> M;
-    std::hash<std::size_t> hasher;
+
+    /**
+     * Vector with m buckets
+     */
+    std::vector<std::uint32_t> M;
+
+    /**
+     * Hash function used to hash the stream's elements.
+     */
+    IHasher<std::string> *hasher_ptr;
 
 
-    inline int getIndex(std::size_t hashedValue) {
-        hashedValue >> (sizeof(std::size_t) - k);
+    /**
+     *
+     * @param bites
+     * @return Number of bucket which it belows
+     */
+    inline std::uint32_t getIndex(std::uint32_t bites) {
+        return bites >> (32 - k);
     }
 
-    std::size_t getOffset(std::size_t bites){
-        int zeros = 1 << k;
-        return bites & (0xFFFFFFFFFFFFFFFF >> zeros);
+    /**
+     *
+     * @param bites
+     * @return
+     */
+    inline std::uint32_t getOffset(std::uint32_t bites){
+        return bites & (0xFFFFFFFF >> (this->k));
     }
 
 
-    int scan1(std::size_t bites) {
+    /**
+     *
+     * @param bites
+     * @return
+     */
+    std::uint32_t scan1(std::uint32_t bites) {
         //TODO: Use bitwise algorithm to get the first one
-        std::size_t offset = getOffset(bites);
-        std::size_t aux = log2(offset);
-        return sizeof(std::size_t) - k - aux;
+        return (32 - k - log2(getOffset(bites)));
     }
 
 public:
 
-    LogLog(int k) {
-        if (k >= (mAlpha.size() - 1)) {
-            throw std::string("Max k (%d) exceeded: k=%d", mAlpha.size() - 1, k);
-        }
-
+    LogLog(std::uint8_t k=5) {
         this->k = k;
-        this->m = 1 << k;
-        this->Ca = mAlpha[k];
-        this->M =  std::vector<std::size_t> (m);
+        this->n = 0;
+        this->m = 1 << (this->k);
+        this->Ca = mAlpha[(this->k)];
+        this->M =  std::vector<std::uint32_t> (this->m);
+        this->hasher_ptr = new MurmurHash<std::string> (-1);
     }
 
-    bool offerHashed(std::size_t hashedValue) {
-        bool modified = false;
 
-        int j = getIndex(hashedValue);
-        std::size_t r =  scan1(hashedValue);
+    bool offerHashed(std::uint32_t hashedValue) {
+        ++n;
+        bool modified = false;
+        std::uint32_t j = getIndex(hashedValue);
+        std::uint32_t r =  scan1(hashedValue);
         if (M[j] < r) {
-            Rsum += r - M[j];
+            Rsum += (r - M[j]);
             M[j] = r;
             modified = true;
         }
@@ -108,14 +147,18 @@ public:
         return modified;
     }
 
-    std::size_t cardinality() {
+    std::uint32_t cardinality() {
         double Ravg = Rsum / (double) m;
-        return (long) (Ca * pow(2, Ravg));
+        return (Ca * pow(2, Ravg));
     }
 
     bool offer(T o) {
-        std::size_t x =  hasher(o);
+        std::uint32_t x =  hasher_ptr->hash(o);
         return offerHashed(x);
+    }
+
+    std::uint64_t elementsOffered() {
+        return n;
     }
 };
 

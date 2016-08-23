@@ -24,17 +24,17 @@ public:
      * @param hashedInt - the hash of the item to offer to the estimator
      * @return false if the value returned by cardinality() is unaffected by the appearance of hashedInt in the stream
      */
-    virtual bool offerHashed(std::size_t hashedInt) = 0;
+    virtual bool offerHashed(std::uint32_t hashedInt) = 0;
 
     /**
      * @return the number of unique elements in the stream or an estimate thereof
      */
-    virtual std::size_t cardinality() = 0;
+    virtual std::uint32_t cardinality() = 0;
 
     /**
      * How many elements has it processed
      */
-    virtual std::size_t elementsOffered() = 0;
+    virtual std::uint64_t elementsOffered() = 0;
 
     /**
      * Defautl destructor for ICardinality
