@@ -4,7 +4,7 @@
 #include "../stream/cardinality/Cardinality.hpp"
 
 int main() {
-    ICardinality<std::string> *counter_ptr = new LogLog<std::string>();
+    ICardinality<std::string> *counter_ptr = new DummyCounter<std::string>();
 
     std::string s;
     while(std::cin >> s)

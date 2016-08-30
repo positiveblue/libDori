@@ -1,11 +1,10 @@
 //
-// Created by jordi on 8/14/2016.
+// Created by Jordi Montes Sanabria on 8/14/2016.
 //
 
 #ifndef LIBSTREAM_ICARDINALITY_H
 #define LIBSTREAM_ICARDINALITY_H
 
-#include <cstddef> /* size_t */
 
 
 template <typename T>
@@ -14,7 +13,7 @@ public:
 
     /**
     * @param o stream element
-    * @return false if the value returned by cardinality() is unaffected by the appearance of o in the stream.
+    * @return false if the value returned by the cardinality() is unaffected by the appearance of o in the stream.
     */
     virtual bool offer(T o) = 0;
 
@@ -24,12 +23,12 @@ public:
      * @param hashedInt - the hash of the item to offer to the estimator
      * @return false if the value returned by cardinality() is unaffected by the appearance of hashedInt in the stream
      */
-    virtual bool offerHashed(std::uint32_t hashedInt) = 0;
+    virtual bool offerHashed(std::uint64_t hashedInt) = 0;
 
     /**
      * @return the number of unique elements in the stream or an estimate thereof
      */
-    virtual std::uint32_t cardinality() = 0;
+    virtual std::uint64_t cardinality() = 0;
 
     /**
      * How many elements has it processed

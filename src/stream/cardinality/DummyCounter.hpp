@@ -12,35 +12,46 @@
 template <typename T>
 class DummyCounter : public ICardinality<T> {
 
+    /*
+     * n: keeps the counter of how many elements has been offered (with repetitions)
+     */
+    uint64_t n;
 
-    int n;
-    std::unordered_set<std::size_t> itemSet;
-    std::hash<T> hasher;
-    const int MAX_SET_SIZE = 1 << 16;
+    /*
+     * itemSet:  keeps all the elements that has been offered (without repetitions)
+     */
+    std::unordered_set<T> itemSet;
 
-
+    /*
+    * MAX_SET_SIZE:  Upperbound for the itemSet
+    */
+    // Remember x << y with y > 32 is has an undefined behavior
+    const int MAX_SET_SIZE = 1 << 31;
 
 public:
 
     DummyCounter() : n{0} {}
 
-    bool offerHashed(std::size_t hashedValue) {
+    bool offerHashed(std::uint64_t element) {
+        throw "Dummy Counter does't work with unit64_t type";
+    }
+
+    bool offerHashed(T element) {
         ++n;
         int old_size = itemSet.size();
-        itemSet.insert(hashedValue);
+        itemSet.insert(element);
         return (itemSet.size() != old_size);
     }
 
-    std::size_t cardinality() {
+    std::uint64_t cardinality() {
         return itemSet.size();
     }
 
     bool offer(T o) {
-        std::size_t x =  hasher(o);
-        return offerHashed(x);
+        return offerHashed(o);
     }
 
-    std::size_t elementsOffered() {
+    std::uint64_t elementsOffered() {
         return n;
     }
 };
