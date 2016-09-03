@@ -12,35 +12,57 @@
 template <typename T>
 class DummyCounter : public ICardinality<T> {
 
+    /*
+     * n: keeps the counter of how many elements has been offered (with repetitions)
+     */
+    uint64_t n;
 
-    int n;
-    std::unordered_set<std::size_t> itemSet;
-    std::hash<T> hasher;
-    const int MAX_SET_SIZE = 1 << 16;
+    /*
+     * itemSet:  keeps all the elements that has been offered (without repetitions)
+     */
+    std::unordered_set<T> itemSet;
 
-
+    /*
+    * MAX_SET_SIZE:  Upperbound for the itemSet
+    */
+    // Remember x << y with y > 32 is has an undefined behavior
+    const int MAX_SET_SIZE = 1 << 31;
 
 public:
 
+    /*
+     * TODO: Description
+     */
     DummyCounter() : n{0} {}
 
-    bool offerHashed(std::size_t hashedValue) {
-        ++n;
-        int old_size = itemSet.size();
-        itemSet.insert(hashedValue);
-        return (itemSet.size() != old_size);
+    /*
+     * TODO: Description
+     */
+    bool offerHash(std::uint64_t element) {
+        throw "Don't use offerHash with the Dummy Counter. Instead use offer";
     }
 
-    std::size_t cardinality() {
+    /*
+     * TODO: Description
+     */
+    std::uint64_t cardinality() {
         return itemSet.size();
     }
 
+    /*
+     * TODO: Description
+     */
     bool offer(T o) {
-        std::size_t x =  hasher(o);
-        return offerHashed(x);
+        ++n;
+        int old_size = itemSet.size();
+        itemSet.insert(o);
+        return (itemSet.size() != old_size);
     }
 
-    std::size_t elementsOffered() {
+    /*
+     * TODO: Description
+     */
+    std::uint64_t elementsOffered() {
         return n;
     }
 };
