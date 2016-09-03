@@ -23,7 +23,7 @@ public:
      * @param hashedInt - the hash of the item to offer to the estimator
      * @return false if the value returned by cardinality() is unaffected by the appearance of hashedInt in the stream
      */
-    virtual bool offerHashed(std::uint64_t hashedInt) = 0;
+    virtual bool offerHash(std::uint64_t hashValue) = 0;
 
     /**
      * @return the number of unique elements in the stream or an estimate thereof

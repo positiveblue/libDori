@@ -30,27 +30,38 @@ class DummyCounter : public ICardinality<T> {
 
 public:
 
+    /*
+     * TODO: Description
+     */
     DummyCounter() : n{0} {}
 
-    bool offerHashed(std::uint64_t element) {
-        throw "Dummy Counter does't work with unit64_t type";
+    /*
+     * TODO: Description
+     */
+    bool offerHash(std::uint64_t element) {
+        throw "Don't use offerHash with the Dummy Counter. Instead use offer";
     }
 
-    bool offerHashed(T element) {
-        ++n;
-        int old_size = itemSet.size();
-        itemSet.insert(element);
-        return (itemSet.size() != old_size);
-    }
-
+    /*
+     * TODO: Description
+     */
     std::uint64_t cardinality() {
         return itemSet.size();
     }
 
+    /*
+     * TODO: Description
+     */
     bool offer(T o) {
-        return offerHashed(o);
+        ++n;
+        int old_size = itemSet.size();
+        itemSet.insert(o);
+        return (itemSet.size() != old_size);
     }
 
+    /*
+     * TODO: Description
+     */
     std::uint64_t elementsOffered() {
         return n;
     }

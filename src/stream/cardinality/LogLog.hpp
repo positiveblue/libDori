@@ -7,11 +7,10 @@
 
 #include <vector>
 #include <math.h>         /* pow */
-#include <cstddef>        /* size_t */
-#include <functional>     /* hash */
 #include "ICardinality.hpp"
 #include "../../hash/Hasher.hpp"
 #include <iostream>
+#include <bitset>
 
 
 template <typename T>
@@ -59,12 +58,12 @@ class LogLog : public ICardinality<T> {
     };
 
     /**
-     * Number of bits used as bucket index.
+     * k: Number of bits used as index for the bucket (Should we limit the value? example 16?).
      */
-    std::uint8_t k;
+    std::uint64_t k;
 
     /**
-     * Number of elements that has been offered (not distinct elements!!)
+     * Number of elements that has been offered (with repetitions)
      */
     std::uint64_t n;
 
@@ -72,74 +71,88 @@ class LogLog : public ICardinality<T> {
      * m represent the number of “small bytes” of auxiliary memory (number of buckets)
      * m = 1 << k
      */
-    std::uint32_t m;
+    std::uint64_t m;
 
     double Ca;
 
     /**
      * Keep the sum of all the buckets, always updated.
      */
-    int Rsum = 0;
+    std::uint64_t Rsum = 0;
 
     /**
      * Vector with m buckets
      */
-    std::vector<std::uint32_t> M;
+    std::vector<std::uint64_t> M;
 
     /**
      * Hash function used to hash the stream's elements.
      */
-    IHasher<std::string> *hasher_ptr;
+    IHasher<T> *hasher_ptr;
 
 
     /**
-     *
+     * Given a 64 bits number we should decide in which bucket it will go. We will use the first k bits for that.
      * @param bites
      * @return Number of bucket which it belows
      */
-    inline std::uint32_t getIndex(std::uint32_t bites) {
-        return bites >> (32 - k);
+    inline std::uint64_t getIndex(std::uint64_t bites) {
+        //If someday we change the size of the hashes, remember to change the 64
+        return bites >> (64 - k);
     }
 
     /**
-     *
+     * If getIndex() return the first K bits, getOffset is the rest.
      * @param bites
      * @return
      */
-    inline std::uint32_t getOffset(std::uint32_t bites){
-        return bites & (0xFFFFFFFF >> (this->k));
+    inline std::uint64_t getOffset(std::uint64_t bites){
+
+        return bites & (0xFFFFFFFFFFFFFFFF >> (k));
     }
 
 
     /**
-     *
+     * Given a 64 bits number, returns the position of the first one which is in the offset
      * @param bites
-     * @return
+     * @return position of the first one which is in the offset
      */
-    std::uint32_t scan1(std::uint32_t bites) {
+    std::uint64_t scan1(std::uint64_t bites) {
         //TODO: Use bitwise algorithm to get the first one
-        return (32 - k - log2(getOffset(bites)));
+        return (64 - k - log2(getOffset(bites)));
     }
 
 public:
 
-    LogLog(std::uint8_t k=5) {
+    /*
+     * TODO: Description
+     */
+    LogLog(std::uint64_t k) {
+
+        if (k >= 32)
+            throw "k should be less than 32";
+
         this->k = k;
         this->n = 0;
         this->m = 1 << (this->k);
-        this->Ca = mAlpha[(this->k)];
-        this->M =  std::vector<std::uint32_t> (this->m);
-        this->hasher_ptr = new MurmurHash<std::string> (-1);
+        this->Ca = mAlpha[(this->k+1)];
+        this->M =  std::vector<std::uint64_t> (this->m);
+        this->hasher_ptr = new MurmurHash<T> ();
     }
 
+    /*
+     * TODO: Description
+     */
+    bool offerHash(std::uint64_t hashValue) {
 
-    bool offerHashed(std::uint32_t hashedValue) {
         ++n;
         bool modified = false;
-        std::uint32_t j = getIndex(hashedValue);
-        std::uint32_t r =  scan1(hashedValue);
+        std::uint64_t j = getIndex(hashValue);
+        std::uint64_t r =  scan1(hashValue);
+
         if (M[j] < r) {
-            Rsum += (r - M[j]);
+            Rsum+=r;
+            Rsum-=M[j];
             M[j] = r;
             modified = true;
         }
@@ -147,17 +160,31 @@ public:
         return modified;
     }
 
-    std::uint32_t cardinality() {
-        double Ravg = Rsum / (double) m;
+    /*
+     * TODO: Description
+     */
+    std::uint64_t cardinality() {
+
+        double Ravg = (Rsum) / (double) m;
+
         return (Ca * pow(2, Ravg));
     }
 
+    /*
+     * TODO: Description
+     */
     bool offer(T o) {
-        std::uint32_t x =  hasher_ptr->hash(o);
-        return offerHashed(x);
+
+        std::uint64_t x =  hasher_ptr->hash64(o);
+
+        return offerHash(x);
     }
 
+    /*
+     * TODO: Description
+     */
     std::uint64_t elementsOffered() {
+
         return n;
     }
 };
