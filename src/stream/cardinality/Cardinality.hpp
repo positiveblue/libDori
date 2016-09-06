@@ -7,5 +7,6 @@
 
 #include "DummyCounter.hpp"
 #include "LogLog.hpp"
+#include "HyperLogLog.hpp"
 
 #endif //LIBSTREAM_CARDINALITY_H

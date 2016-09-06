@@ -6,11 +6,13 @@
 int main() {
     ICardinality<std::string> *counter_ptr = new DummyCounter<std::string>();
     ICardinality<std::string> *LogLog_ptr = new LogLog<std::string>(7);
+    ICardinality<std::string> *HyperLogLog_ptr = new HyperLogLog<std::string>(7);
     std::string s;
 
     while(std::cin >> s) {
         counter_ptr->offer(s);
         LogLog_ptr->offer(s);
+        HyperLogLog_ptr->offer(s);
     }
 
 
@@ -18,6 +20,8 @@ int main() {
         << ' ' << counter_ptr->cardinality()/counter_ptr->cardinality() << std::endl;
     std::cout << "LogLog: " << LogLog_ptr->cardinality() << ' ' << LogLog_ptr->elementsOffered() \
         << ' ' << counter_ptr->cardinality()/(double)LogLog_ptr->cardinality() << std::endl;
+    std::cout << "HyperLogLog: " << HyperLogLog_ptr->cardinality() << ' ' << HyperLogLog_ptr->elementsOffered() \
+        << ' ' << counter_ptr->cardinality()/(double)HyperLogLog_ptr->cardinality() << std::endl;
 
     return 0;
 }
