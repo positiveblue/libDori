@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -std=c++14  -std=c++14  -shared -Wl,-soname,liblstream.so -o liblstream.so CMakeFiles/lstream.dir/src/utils/hash/MurmurHash.cpp.o 

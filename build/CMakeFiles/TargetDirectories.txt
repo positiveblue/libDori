@@ -1,9 +1,3 @@
 /home/jms/Documents/libstream/build/CMakeFiles/edit_cache.dir
 /home/jms/Documents/libstream/build/CMakeFiles/rebuild_cache.dir
-/home/jms/Documents/libstream/build/tests/CMakeFiles/rebuild_cache.dir
-/home/jms/Documents/libstream/build/tests/CMakeFiles/edit_cache.dir
-/home/jms/Documents/libstream/build/tests/utility/CMakeFiles/edit_cache.dir
-/home/jms/Documents/libstream/build/tests/utility/CMakeFiles/rebuild_cache.dir
-/home/jms/Documents/libstream/build/tests/utility/hash/CMakeFiles/edit_cache.dir
-/home/jms/Documents/libstream/build/tests/utility/hash/CMakeFiles/rebuild_cache.dir
-/home/jms/Documents/libstream/build/tests/utility/hash/CMakeFiles/murmurhash_unittest.dir
+/home/jms/Documents/libstream/build/CMakeFiles/lstream.dir

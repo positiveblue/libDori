@@ -60,93 +60,39 @@ CMAKE_SOURCE_DIR = /home/jms/Documents/libstream
 CMAKE_BINARY_DIR = /home/jms/Documents/libstream/build
 
 #=============================================================================
-# Directory level rules for directory tests
-
-# Convenience name for "all" pass in the directory.
-tests/all: tests/utility/all
-
-.PHONY : tests/all
-
-# Convenience name for "clean" pass in the directory.
-tests/clean: tests/utility/clean
-
-.PHONY : tests/clean
-
-# Convenience name for "preinstall" pass in the directory.
-tests/preinstall: tests/utility/preinstall
-
-.PHONY : tests/preinstall
-
-#=============================================================================
-# Directory level rules for directory tests/utility
-
-# Convenience name for "all" pass in the directory.
-tests/utility/all: tests/utility/hash/all
-
-.PHONY : tests/utility/all
-
-# Convenience name for "clean" pass in the directory.
-tests/utility/clean: tests/utility/hash/clean
-
-.PHONY : tests/utility/clean
-
-# Convenience name for "preinstall" pass in the directory.
-tests/utility/preinstall: tests/utility/hash/preinstall
-
-.PHONY : tests/utility/preinstall
-
-#=============================================================================
-# Directory level rules for directory tests/utility/hash
-
-# Convenience name for "all" pass in the directory.
-tests/utility/hash/all: tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/all
-
-.PHONY : tests/utility/hash/all
-
-# Convenience name for "clean" pass in the directory.
-tests/utility/hash/clean: tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/clean
-
-.PHONY : tests/utility/hash/clean
-
-# Convenience name for "preinstall" pass in the directory.
-tests/utility/hash/preinstall:
-
-.PHONY : tests/utility/hash/preinstall
-
-#=============================================================================
-# Target rules for target tests/utility/hash/CMakeFiles/murmurhash_unittest.dir
+# Target rules for target CMakeFiles/lstream.dir
 
 # All Build rule for target.
-tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/all:
-	$(MAKE) -f tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/build.make tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/depend
-	$(MAKE) -f tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/build.make tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jms/Documents/libstream/build/CMakeFiles --progress-num=1,2 "Built target murmurhash_unittest"
-.PHONY : tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/all
+CMakeFiles/lstream.dir/all:
+	$(MAKE) -f CMakeFiles/lstream.dir/build.make CMakeFiles/lstream.dir/depend
+	$(MAKE) -f CMakeFiles/lstream.dir/build.make CMakeFiles/lstream.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jms/Documents/libstream/build/CMakeFiles --progress-num=1,2 "Built target lstream"
+.PHONY : CMakeFiles/lstream.dir/all
 
 # Include target in all.
-all: tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/all
+all: CMakeFiles/lstream.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/rule: cmake_check_build_system
+CMakeFiles/lstream.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jms/Documents/libstream/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/lstream.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jms/Documents/libstream/build/CMakeFiles 0
-.PHONY : tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/rule
+.PHONY : CMakeFiles/lstream.dir/rule
 
 # Convenience name for target.
-murmurhash_unittest: tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/rule
+lstream: CMakeFiles/lstream.dir/rule
 
-.PHONY : murmurhash_unittest
-
-# clean rule for target.
-tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/clean:
-	$(MAKE) -f tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/build.make tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/clean
-.PHONY : tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/clean
+.PHONY : lstream
 
 # clean rule for target.
-clean: tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/clean
+CMakeFiles/lstream.dir/clean:
+	$(MAKE) -f CMakeFiles/lstream.dir/build.make CMakeFiles/lstream.dir/clean
+.PHONY : CMakeFiles/lstream.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/lstream.dir/clean
 
 .PHONY : clean
 

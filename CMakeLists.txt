@@ -14,20 +14,40 @@ project(libStream)
 include (${CMAKE_SOURCE_DIR}/CMake/cmake_compiler_flags.cmake)
 message (STATUS "Building on ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_PROCESSOR} on $ENV{HOSTNAME}")
 
-
-include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_tests.cmake)
-
-#--------------------------------------------------------------------------
-# Includes
-# Add the include directory path for libStream. Remember that only the top dir
-# is added for the include, meaning that all the subdirs have to be explictly
-# referred.
-include_directories (${CMAKE_SOURCE_DIR})
-# include_directories (${CMAKE_BINARY_DIR})
+# Build as SharedLibrary
+option (BUILD_SHARED_LIBS "Whether we should build it as a shared library or not" ON)
+if(BUILD_SHARED_LIBS)
+  set(LIBRARY_TYPE SHARED)
+else()
+  set(LIBRARY_TYPE STATIC)
+endif()
 
 
+# The main library
+# ================
+
+message(STATUS 
+  "Appending ${PROJECT_SOURCE_DIR}/include for Elemental's source includes")
+include_directories("${PROJECT_SOURCE_DIR}/include")
+
+# Get the combined list of source files for Elemental
+# ---------------------------------------------------
+file(GLOB_RECURSE LSTREAM_C_CPP_SOURCE RELATIVE "${PROJECT_SOURCE_DIR}"
+  "src/*.c" "src/*.cpp" "include/*.h" "include/*.hpp" )
 
 
-#add_subdirectory (${CMAKE_SOURCE_DIR}/src/tests)
+# Define the main library for Elemental
+# -------------------------------------
+add_library(lstream ${LSTREAM_C_CPP_SOURCE})
 
-#include (${CMAKE_SOURCE_DIR}/CMake/cmake_libstream_install.cmake)
+
+# Dependency libraries
+# -------------------------------------
+target_link_libraries(lstream ${LINK_LIBS})
+
+
+# Compiler flags
+# -------------------------------------
+if(CMAKE_CXX_FLAGS)
+  set_target_properties(lstream PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
+endif()

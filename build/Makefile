@@ -111,17 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named murmurhash_unittest
+# Target rules for targets named lstream
 
 # Build rule for target.
-murmurhash_unittest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 murmurhash_unittest
-.PHONY : murmurhash_unittest
+lstream: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lstream
+.PHONY : lstream
 
 # fast build rule for target.
-murmurhash_unittest/fast:
-	$(MAKE) -f tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/build.make tests/utility/hash/CMakeFiles/murmurhash_unittest.dir/build
-.PHONY : murmurhash_unittest/fast
+lstream/fast:
+	$(MAKE) -f CMakeFiles/lstream.dir/build.make CMakeFiles/lstream.dir/build
+.PHONY : lstream/fast
+
+src/utils/hash/MurmurHash.o: src/utils/hash/MurmurHash.cpp.o
+
+.PHONY : src/utils/hash/MurmurHash.o
+
+# target to build an object file
+src/utils/hash/MurmurHash.cpp.o:
+	$(MAKE) -f CMakeFiles/lstream.dir/build.make CMakeFiles/lstream.dir/src/utils/hash/MurmurHash.cpp.o
+.PHONY : src/utils/hash/MurmurHash.cpp.o
+
+src/utils/hash/MurmurHash.i: src/utils/hash/MurmurHash.cpp.i
+
+.PHONY : src/utils/hash/MurmurHash.i
+
+# target to preprocess a source file
+src/utils/hash/MurmurHash.cpp.i:
+	$(MAKE) -f CMakeFiles/lstream.dir/build.make CMakeFiles/lstream.dir/src/utils/hash/MurmurHash.cpp.i
+.PHONY : src/utils/hash/MurmurHash.cpp.i
+
+src/utils/hash/MurmurHash.s: src/utils/hash/MurmurHash.cpp.s
+
+.PHONY : src/utils/hash/MurmurHash.s
+
+# target to generate assembly for a file
+src/utils/hash/MurmurHash.cpp.s:
+	$(MAKE) -f CMakeFiles/lstream.dir/build.make CMakeFiles/lstream.dir/src/utils/hash/MurmurHash.cpp.s
+.PHONY : src/utils/hash/MurmurHash.cpp.s
 
 # Help Target
 help:
@@ -131,7 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... murmurhash_unittest"
+	@echo "... lstream"
+	@echo "... src/utils/hash/MurmurHash.o"
+	@echo "... src/utils/hash/MurmurHash.i"
+	@echo "... src/utils/hash/MurmurHash.s"
 .PHONY : help
 
 

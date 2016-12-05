@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/utils/hash/IHasher.hpp
+
+../include/utils/hash/MurmurHash.hpp
+chrono
+-
+random
+-
+IHasher.hpp
+../include/utils/hash/IHasher.hpp
+
+/home/jms/Documents/libstream/src/utils/hash/MurmurHash.cpp
+utils/hash/MurmurHash.hpp
+/home/jms/Documents/libstream/src/utils/hash/utils/hash/MurmurHash.hpp
+
