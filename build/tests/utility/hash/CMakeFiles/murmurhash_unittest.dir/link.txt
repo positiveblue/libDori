@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++14    CMakeFiles/murmurhash_unittest.dir/murmurhash_unittest.cpp.o  -o murmurhash_unittest -rdynamic 
