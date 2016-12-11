@@ -27,27 +27,43 @@ endif()
 # ================
 
 message(STATUS 
-  "Appending ${PROJECT_SOURCE_DIR}/include for Elemental's source includes")
+  "Appending ${PROJECT_SOURCE_DIR}/include for LibStream's source includes")
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-# Get the combined list of source files for Elemental
+# Get the combined list of source files for LibStream
 # ---------------------------------------------------
 file(GLOB_RECURSE LSTREAM_C_CPP_SOURCE RELATIVE "${PROJECT_SOURCE_DIR}"
-  "src/*.c" "src/*.cpp" "include/*.h" "include/*.hpp" )
+  "src/*.cpp" "include/*.hpp")
 
 
-# Define the main library for Elemental
+# Define the main library for LibStream
 # -------------------------------------
-add_library(lstream ${LSTREAM_C_CPP_SOURCE})
+add_library(stream ${LSTREAM_C_CPP_SOURCE})
 
 
 # Dependency libraries
 # -------------------------------------
-target_link_libraries(lstream ${LINK_LIBS})
+target_link_libraries(stream ${LINK_LIBS})
 
 
 # Compiler flags
 # -------------------------------------
 if(CMAKE_CXX_FLAGS)
-  set_target_properties(lstream PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
+  set_target_properties(stream PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
+endif()
+
+
+
+# Tests and examples
+# ==================
+include(CTest)
+
+option (BUILD_TESTS "Whether we should build it as a shared library or not" ON)
+if(BUILD_TESTS)
+
+  file(GLOB_RECURSE LSTREAM_TEST_SOURCE RELATIVE "${PROJECT_SOURCE_DIR}"
+    "tests/*.hpp" "tests/*.cpp" )
+
+  add_executable(libstream-tests ${LSTREAM_C_CPP_SOURCE} ${LSTREAM_TEST_SOURCE})
+
 endif()
