@@ -1,3 +1,0 @@
-/home/jms/Documents/libstream/build/CMakeFiles/edit_cache.dir
-/home/jms/Documents/libstream/build/CMakeFiles/rebuild_cache.dir
-/home/jms/Documents/libstream/build/CMakeFiles/lstream.dir
