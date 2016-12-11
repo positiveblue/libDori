@@ -106,9 +106,13 @@ std::uint32_t MurmurHash::hash(const std::string &str) {
   return hash(str.data(), str.size());
 }
 
-std::uint64_t MurmurHash::hash64(const char *ptr, std::uint32_t size) {}
+std::uint64_t MurmurHash::hash64(const char *ptr, std::uint32_t size) {
+  return hash(ptr, size);
+}
 
-std::uint64_t MurmurHash::hash64(const std::string &str) {}
+std::uint64_t MurmurHash::hash64(const std::string &str) {
+  return hash(str.data(), str.size());
+}
 
 }  // namespace utils
 }  // namespace ls
