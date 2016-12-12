@@ -23,6 +23,8 @@
 #ifndef LIBSTREAM_CARDINALITY_HPP
 #define LIBSTREAM_CARDINALITY_HPP
 
+
+#include "./ICardinality.hpp"
 #include "./RegisterSet.hpp"
 
 #endif //LIBSTREAM_CARDINALITY_HPP

@@ -20,10 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_HPP
-#define LIBSTREAM_HPP
 
-#include "./stream/stream.hpp"
-#include "./utils/utils.hpp"
+#ifndef LIBSTREAM_ICARDINALITY_HPP
+#define LIBSTREAM_ICARDINALITY_HPP
 
-#endif //LIBSTREAM_HPP
+#include <cstdint>
+
+namespace ls { namespace stream {
+
+class ICardinality {
+ public:
+  virtual bool offer(const std::string &str) = 0;
+
+  virtual bool offerHash(std::uint64_t hashValue) = 0;
+
+  virtual std::uint64_t cardinality() = 0;
+
+  virtual std::uint64_t elementsOffered() = 0;
+
+  virtual ~ICardinality();
+};
+
+}  // namespace stream
+}  // namespace ls
+
+#endif  // LIBSTREAM_ICARDINALITY_HPP
