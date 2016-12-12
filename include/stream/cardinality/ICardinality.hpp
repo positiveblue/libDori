@@ -25,6 +25,7 @@
 #define LIBSTREAM_ICARDINALITY_HPP
 
 #include <cstdint>
+#include <string>
 
 namespace ls { namespace stream {
 
@@ -38,7 +39,6 @@ class ICardinality {
 
   virtual std::uint64_t elementsOffered() = 0;
 
-  virtual ~ICardinality();
 };
 
 }  // namespace stream
