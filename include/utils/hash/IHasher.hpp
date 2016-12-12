@@ -24,13 +24,16 @@
 #define LIBSTREAM_IHASHER_HPP
 
 #include <cstdint>
+#include <string>
 
 namespace ls { namespace utils {
 
 class IHasher {
  public:
   virtual std::uint32_t hash(const char *ptr, std::uint32_t size) = 0;
+  virtual std::uint32_t hash(const std::string &str) = 0;
   virtual std::uint64_t hash64(const char *ptr, std::uint32_t size) = 0;
+  virtual std::uint64_t hash64(const std::string &str) = 0;
 };
 
 }  // namespace utils
