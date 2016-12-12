@@ -24,6 +24,7 @@
 #ifndef LIBSTREAM_MURMURHASH_HPP
 #define LIBSTREAM_MURMURHASH_HPP
 
+#include <cstdint>
 #include <chrono>
 #include <random>
 
@@ -55,4 +56,4 @@ class MurmurHash : public IHasher {
 }  // namespace utils
 }  // namespace ls
 
-#endif //LIBSTREAM_MURMURHASH_HPP
+#endif  // LIBSTREAM_MURMURHASH_HPP

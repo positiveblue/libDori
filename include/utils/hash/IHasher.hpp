@@ -23,6 +23,8 @@
 #ifndef LIBSTREAM_IHASHER_HPP
 #define LIBSTREAM_IHASHER_HPP
 
+#include <cstdint>
+
 namespace ls { namespace utils {
 
 class IHasher {
