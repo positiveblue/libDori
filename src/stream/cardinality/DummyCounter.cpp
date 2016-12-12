@@ -20,12 +20,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_CARDINALITY_HPP
-#define LIBSTREAM_CARDINALITY_HPP
 
+#include "stream/cardinality/DummyCounter.hpp"
 
-#include "./ICardinality.hpp"
-#include "./DummyCounter.hpp"
-#include "./RegisterSet.hpp"
+namespace ls { namespace stream {
+  DummyCounter::DummyCounter() {
+    counter = 0;
+    this->hasher = new ls::utils::MurmurHash();
+  }
 
-#endif //LIBSTREAM_CARDINALITY_HPP
+  bool DummyCounter::offer(const std::string &str) {
+    ++counter;
+
+    bool modified = (this->stringSet.find(str) == this->stringSet.end());
+    if (modified) {
+      this->stringSet.insert(str);
+      std::uint64_t hashValue = (this->hasher)->hash(str);
+      this->hashSet.insert(hashValue);
+    }
+    
+    return modified;
+  }
+
+  bool DummyCounter::offerHash(std::uint64_t hashValue) {
+
+  }
+
+  std::uint64_t DummyCounter::cardinality() {
+    return stringSet.size();
+  }
+
+  std::uint64_t DummyCounter::elementsOffered() {
+    return counter;
+  }
+
+  DummyCounter::~DummyCounter() {
+    delete this->hasher;
+  }
+
+}  // namespace stream
+}  // namespace ls

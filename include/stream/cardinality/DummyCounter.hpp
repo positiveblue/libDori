@@ -20,12 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_CARDINALITY_HPP
-#define LIBSTREAM_CARDINALITY_HPP
 
+#ifndef LIBSTREAM_DUMMY_COUNTER_HPP
+#define LIBSTREAM_DUMMY_COUNTER_HPP
 
+#include <cstdint>
+#include <string>
+#include <set>
 #include "./ICardinality.hpp"
-#include "./DummyCounter.hpp"
-#include "./RegisterSet.hpp"
+#include "../../utils/hash/hash.hpp"
 
-#endif //LIBSTREAM_CARDINALITY_HPP
+namespace ls { namespace stream {
+
+class DummyCounter : public ICardinality {
+ public:
+  DummyCounter();
+
+  bool offer(const std::string &str);
+
+  bool offerHash(std::uint64_t hashValue);
+
+  std::uint64_t cardinality();
+
+  std::uint64_t elementsOffered();
+
+  ~DummyCounter();
+
+ private:
+  ls::utils::IHasher* hasher;
+  std::set<std::string> stringSet;
+  std::set<std::uint64_t> hashSet;
+  std::uint64_t counter;
+};
+
+}  // namespace stream
+}  // namespace ls
+
+#endif  // LIBSTREAM_DUMMY_COUNTER_HPP
