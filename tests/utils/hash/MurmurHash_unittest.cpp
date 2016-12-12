@@ -1,4 +1,4 @@
-#include "catch/catch.hpp"
+#include "catch/catch_lib.hpp"
 #include "utils/hash/hash.hpp"
 
 TEST_CASE( "Creating Murmurhash object", "[Murmurhash3]" ) {
