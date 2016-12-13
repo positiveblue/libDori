@@ -20,13 +20,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_CARDINALITY_HPP
-#define LIBSTREAM_CARDINALITY_HPP
+#ifndef LIBSTREAM_RECORD_SET_HPP
+#define LIBSTREAM_RECORD_SET_HPP
 
 
-#include "./ICardinality.hpp"
-#include "./DummyCounter.hpp"
-#include "./RecordSet.hpp"
-#include "./RegisterSet.hpp"
+#include <cstdint>
+#include <set>
+#include <map>
+#include <string>
 
-#endif //LIBSTREAM_CARDINALITY_HPP
+#include "../../utils/hash/hash.hpp"
+
+namespace ls { namespace stream {
+
+class RecordSet {
+ public:
+  RecordSet(std::uint64_t size_, bool isGrowing_, bool isSampling_);
+
+  bool offer(const std::string &str);
+
+  std::uint64_t getSize();
+  std::uint64_t getCounter();
+  std::uint64_t getRecordCounter();
+
+  std::set<std::string> getSample();
+
+  private:
+    ls::utils::IHasher* hasher;
+    
+    std::uint64_t size;
+    std::uint64_t counter;
+    std::uint64_t recordCounter;
+
+    bool isGrowing;
+    bool isSampling;
+
+    std::set<std::uint64_t> records;
+    std::map<std::uint64_t, std::string> sample;
+
+};
+
+}  // namespace stream
+}  // namespace ls
+
+#endif //LIBSTREAM_RECORD_SET_HPP
