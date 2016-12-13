@@ -25,15 +25,17 @@
 
 namespace ls { namespace stream {
 
-  RecordSet::RecordSet(std::uint64_t size_, bool isGrowing_, bool isSampling_)
-    : size(size), isGrowing(isGrowing_), isSampling(isSampling_) {}
+  RecordSet::RecordSet(std::uint64_t size_, bool isSampling_) : size(size_), 
+    isSampling(isSampling_), counter(0), recordCounter(0) {
+      this->hasher = new ls::utils::MurmurHash();
+    }
 
   bool RecordSet::offer(const std::string &str) {
     bool modified = false;
     ++this->counter;
     std::uint64_t hashValue = (this->hasher)->hash64(str);
 
-    if (this->records.find(hashValue) == this->records.begin()) {
+    if (this->records.find(hashValue) == this->records.end()) {
       if ((this->records.size() < (this->size)) ||
          (*(this->records.begin()) < hashValue)) {
         
@@ -47,8 +49,9 @@ namespace ls { namespace stream {
         }
 
         if (this->records.size() > this->size) {
-          this->records.erase(hashValue);
-          this->sample.erase(hashValue);
+          std::uint64_t smallestRecord = *(this->records.begin());
+          this->records.erase(smallestRecord);
+          this->sample.erase(smallestRecord);
         }
       }
     }
@@ -74,6 +77,10 @@ namespace ls { namespace stream {
       sample.insert(it->second);
     }
     return sample;
+  }
+
+  RecordSet::~RecordSet() {
+    delete this->hasher;
   }
 
 }  // namespace stream

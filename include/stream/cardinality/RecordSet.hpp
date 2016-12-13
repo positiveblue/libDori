@@ -35,7 +35,7 @@ namespace ls { namespace stream {
 
 class RecordSet {
  public:
-  RecordSet(std::uint64_t size_, bool isGrowing_, bool isSampling_);
+  RecordSet(std::uint64_t size_, bool isSampling_=false);
 
   bool offer(const std::string &str);
 
@@ -44,6 +44,8 @@ class RecordSet {
   std::uint64_t getRecordCounter();
 
   std::set<std::string> getSample();
+
+  ~RecordSet();
 
   private:
     ls::utils::IHasher* hasher;
