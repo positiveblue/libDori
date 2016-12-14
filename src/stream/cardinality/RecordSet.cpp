@@ -70,6 +70,10 @@ namespace ls { namespace stream {
     return this->recordCounter;
   }
 
+  std::set<std::uint64_t> RecordSet::getRecords() {
+    return std::set<std::uint64_t> (this->records);
+  }
+
   std::set<std::string> RecordSet::getSample() {
     std::set<std::string> sample;
 

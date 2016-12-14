@@ -43,6 +43,7 @@ class RecordSet {
   std::uint64_t getCounter();
   std::uint64_t getRecordCounter();
 
+  std::set<std::uint64_t> getRecords();
   std::set<std::string> getSample();
 
   ~RecordSet();
