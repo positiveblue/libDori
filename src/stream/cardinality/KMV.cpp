@@ -35,7 +35,17 @@ namespace ls { namespace stream {
   bool KMV::offerHash(std::uint64_t hashValue) {}
 
   std::uint64_t KMV::cardinality() {
+    std::set<std::uint64_t> records = this->recordSet->getRecords();
 
+    double smallestRecord = *(records.begin());
+
+    double distance = 0xFFFFFFFFFFFFFFFF - smallestRecord;
+
+    return distance;
+
+    double m = distance/records.size();
+
+    return 1.0/m;
   }
 
   std::uint64_t KMV::elementsOffered() {
