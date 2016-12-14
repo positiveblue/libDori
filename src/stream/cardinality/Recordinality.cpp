@@ -21,39 +21,41 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_RECORDINALITY_HPP
-#define LIBSTREAM_RECORDINALITY_HPP
-
-#include <cstdint>
-#include <string>
-#include <set>
-#include "./ICardinality.hpp"
-#include "./RecordSet.hpp"
-
+#include <math.h> 
+#include "stream/cardinality/Recordinality.hpp"
+#include "stream/cardinality/RecordSet.hpp"
 
 namespace ls { namespace stream {
 
-class Recordinality : public ICardinality {
- public:
-  Recordinality(std::uint64_t size, bool isSampling_=false);
+  Recordinality::Recordinality(std::uint64_t size_, bool isSampling_) {
+    this->recordSet = new ls::stream::RecordSet(size_, isSampling_);
+  }
 
-  bool offer(const std::string &str);
+  bool Recordinality::offer(const std::string &str) {
+    this->recordSet->offer(str);
+  }
 
-  bool offerHash(std::uint64_t hashValue);
+  bool Recordinality::offerHash(std::uint64_t hashValue) {}
 
-  std::uint64_t cardinality();
+  std::uint64_t Recordinality::cardinality() {
+    int k = this->recordSet->getSize();
+    int rk = this->recordSet->getRecordCounter();
 
-  std::uint64_t elementsOffered();
+    double base = 1.0 + 1.0/k;
+    double exp = rk - k + 1;
 
-  ~Recordinality();
+    double res = k * pow(base, exp) - 1;
 
- private:
-  RecordSet* recordSet;
+    return res;
+  }
 
-  std::uint64_t counter;
-};
+  std::uint64_t Recordinality::elementsOffered() {
+    return this->recordSet->getCounter();
+  }
+
+  Recordinality::~Recordinality() {
+    delete this->recordSet;
+  }
 
 }  // namespace stream
 }  // namespace ls
-
-#endif  // LIBSTREAM_RECORDINALITY_HPP
