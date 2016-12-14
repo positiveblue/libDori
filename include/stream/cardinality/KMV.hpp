@@ -20,16 +20,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_CARDINALITY_HPP
-#define LIBSTREAM_CARDINALITY_HPP
 
-#include "./RecordSet.hpp"
-#include "./RegisterSet.hpp"
+#ifndef LIBSTREAM_KMV_HPP
+#define LIBSTREAM_KMV_HPP
 
+#include <cstdint>
+#include <string>
+#include <set>
 #include "./ICardinality.hpp"
-#include "./DummyCounter.hpp"
-#include "./Recordinality.hpp"
-#include "./KMV.hpp"
+#include "./RecordSet.hpp"
 
 
-#endif //LIBSTREAM_CARDINALITY_HPP
+namespace ls { namespace stream {
+
+class KMV : public ICardinality {
+ public:
+  KMV(std::uint64_t size, bool isSampling_=false);
+
+  bool offer(const std::string &str);
+
+  bool offerHash(std::uint64_t hashValue);
+
+  std::uint64_t cardinality();
+
+  std::uint64_t elementsOffered();
+
+  ~KMV();
+
+ private:
+  RecordSet* recordSet;
+
+};
+
+}  // namespace stream
+}  // namespace ls
+
+#endif  // LIBSTREAM_KMV_HPP
