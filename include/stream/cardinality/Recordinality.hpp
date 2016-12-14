@@ -25,6 +25,7 @@
 #define LIBSTREAM_RECORDINALITY_HPP
 
 #include <cstdint>
+#include <math.h> 
 #include <string>
 #include <set>
 #include "./ICardinality.hpp"
