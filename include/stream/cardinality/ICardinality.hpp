@@ -21,13 +21,13 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_ICARDINALITY_HPP
-#define LIBSTREAM_ICARDINALITY_HPP
+#ifndef DORI_ICARDINALITY_HPP
+#define DORI_ICARDINALITY_HPP
 
 #include <cstdint>
 #include <string>
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
 class ICardinality {
  public:
@@ -42,6 +42,6 @@ class ICardinality {
 };
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori
 
-#endif  // LIBSTREAM_ICARDINALITY_HPP
+#endif  // DORI_ICARDINALITY_HPP

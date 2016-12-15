@@ -2,5 +2,5 @@
 #include "utils/hash/hash.hpp"
 
 TEST_CASE( "Creating Murmurhash object", "[Murmurhash3]" ) {
-  ls::utils::IHasher* hasher = new ls::utils::MurmurHash();
+  dori::utils::IHasher* hasher = new dori::utils::MurmurHash();
 }

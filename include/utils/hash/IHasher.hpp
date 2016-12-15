@@ -20,13 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_IHASHER_HPP
-#define LIBSTREAM_IHASHER_HPP
+#ifndef DORI_IHASHER_HPP
+#define DORI_IHASHER_HPP
 
 #include <cstdint>
 #include <string>
 
-namespace ls { namespace utils {
+namespace dori { namespace utils {
 
 class IHasher {
  public:
@@ -37,6 +37,6 @@ class IHasher {
 };
 
 }  // namespace utils
-}  // namespace ls
+}  // namespace dori
 
-#endif //LIBSTREAM_IHASHER_HPP
+#endif //DORI_IHASHER_HPP

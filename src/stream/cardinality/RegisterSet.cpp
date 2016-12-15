@@ -23,7 +23,7 @@
 
 #include "stream/cardinality/RegisterSet.hpp"
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
 RegisterSet::RegisterSet(std::uint64_t size_) {
   this->size = size_;
@@ -59,4 +59,4 @@ std::uint64_t RegisterSet::scan1(std::uint64_t bits) {
 }
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori

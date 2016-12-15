@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_DEFAULT_HASH_HPP
-#define LIBSTREAM_DEFAULT_HASH_HPP
+#ifndef DORI_DEFAULT_HASH_HPP
+#define DORI_DEFAULT_HASH_HPP
 
 #include <cstdint>
 #include <random>
@@ -31,7 +31,7 @@
 
 #include "IHasher.hpp"
 
-namespace ls { namespace utils {
+namespace dori { namespace utils {
 
 class DefaultHash : public IHasher {
  public:
@@ -56,7 +56,7 @@ private:
 };
 
 }  // namespace utils
-}  // namespace ls
+}  // namespace dori
 
-#endif  // LIBSTREAM_DEFAULT_HASH_HPP
+#endif  // DORI_DEFAULT_HASH_HPP
 

@@ -22,7 +22,7 @@
 
 #include "utils/hash/MurmurHash.hpp"
 
-namespace ls { namespace utils {
+namespace dori { namespace utils {
 
   MurmurHash::MurmurHash() {
     // TODO(Jordi): Check if the random generator is well done for 32 and 64!
@@ -115,4 +115,4 @@ namespace ls { namespace utils {
   }
 
 }  // namespace utils
-}  // namespace ls
+}  // namespace dori

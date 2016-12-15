@@ -7,14 +7,14 @@
 #include "stream/cardinality/DummyCounter.hpp"
 
 TEST_CASE( "Creating DummyCounter object", "[DummyCounter]" ) {
-  ls::stream::ICardinality* DC = new ls::stream::DummyCounter();
+  dori::stream::ICardinality* DC = new dori::stream::DummyCounter();
 }
 
 // Testing with 3 datasets provide with the library
 TEST_CASE( "DummyCounter cardinality for D1.txt", "[DummyCounter]" ) {
   // Data file path
   std::string data_path = "../datasets/D1.txt";
-  ls::stream::ICardinality* DC = new ls::stream::DummyCounter();
+  dori::stream::ICardinality* DC = new dori::stream::DummyCounter();
 
   std::ifstream file(data_path);
 
@@ -37,7 +37,7 @@ TEST_CASE( "DummyCounter cardinality for D1.txt", "[DummyCounter]" ) {
 TEST_CASE( "DummyCounter cardinality for D2.txt", "[DummyCounter]" ) {
   // Data file path
   std::string data_path = "../datasets/D2.txt";
-  ls::stream::ICardinality* DC = new ls::stream::DummyCounter();
+  dori::stream::ICardinality* DC = new dori::stream::DummyCounter();
 
   std::ifstream file(data_path);
 
@@ -60,7 +60,7 @@ TEST_CASE( "DummyCounter cardinality for D2.txt", "[DummyCounter]" ) {
 TEST_CASE( "DummyCounter cardinality for D3.txt", "[DummyCounter]" ) {
   // Data file path
   std::string data_path = "../datasets/D3.txt";
-  ls::stream::ICardinality* DC = new ls::stream::DummyCounter();
+  dori::stream::ICardinality* DC = new dori::stream::DummyCounter();
 
   std::ifstream file(data_path);
 

@@ -23,10 +23,10 @@
 #include "stream/cardinality/KMV.hpp"
 #include <iostream>
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
   KMV::KMV(std::uint64_t size_, bool isSampling_) {
-    this->recordSet = new ls::stream::RecordSet(size_, isSampling_);
+    this->recordSet = new dori::stream::RecordSet(size_, isSampling_);
   }
 
   bool KMV::offer(const std::string &str) {
@@ -56,4 +56,4 @@ namespace ls { namespace stream {
   }
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori

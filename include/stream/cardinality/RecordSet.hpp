@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_RECORD_SET_HPP
-#define LIBSTREAM_RECORD_SET_HPP
+#ifndef DORI_RECORD_SET_HPP
+#define DORI_RECORD_SET_HPP
 
 
 #include <cstdint>
@@ -31,7 +31,7 @@
 
 #include "../../utils/hash/hash.hpp"
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
 class RecordSet {
  public:
@@ -49,7 +49,7 @@ class RecordSet {
   ~RecordSet();
 
   private:
-    ls::utils::IHasher* hasher;
+    dori::utils::IHasher* hasher;
     
     std::uint64_t size;
     std::uint64_t counter;
@@ -64,6 +64,6 @@ class RecordSet {
 };
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori
 
-#endif //LIBSTREAM_RECORD_SET_HPP
+#endif //DORI_RECORD_SET_HPP

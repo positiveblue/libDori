@@ -3,26 +3,26 @@ cmake_minimum_required(VERSION 3.2.2) # CMake version check
 # we don't allow libStream to be build in the source directory
 set (CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-set (LIBSTREAM_VERSION_MAJOR 0)
-set (LIBSTREAM_VERSION_MINOR 1)
+set (DORI_VERSION_MAJOR 0)
+set (DORI_VERSION_MINOR 1)
 
 
-# Create project "libStream"
-project(libStream)
+# Create project "libDori"
+project(libDori)
 
 # Include Directories
 # ================
 
-# LibStream files
+# LibDori files
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
 # Third party libraries
 include_directories("${PROJECT_SOURCE_DIR}/third_party")
 
 
-# LibStream's combined list of source files
+# LibDori's combined list of source files
 # ================
-file(GLOB_RECURSE LSTREAM_C_CPP_SOURCE RELATIVE "${PROJECT_SOURCE_DIR}"
+file(GLOB_RECURSE LDORI_C_CPP_SOURCE RELATIVE "${PROJECT_SOURCE_DIR}"
   "src/*.cpp" "include/*.hpp")
 
 

@@ -22,10 +22,10 @@
 
 #include "stream/cardinality/Recordinality.hpp"
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
   Recordinality::Recordinality(std::uint64_t size_, bool isSampling_) {
-    this->recordSet = new ls::stream::RecordSet(size_, isSampling_);
+    this->recordSet = new dori::stream::RecordSet(size_, isSampling_);
   }
 
   bool Recordinality::offer(const std::string &str) {
@@ -55,4 +55,4 @@ namespace ls { namespace stream {
   }
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori

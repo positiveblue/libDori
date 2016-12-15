@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_MURMURHASH_HPP
-#define LIBSTREAM_MURMURHASH_HPP
+#ifndef DORI_MURMURHASH_HPP
+#define DORI_MURMURHASH_HPP
 
 #include <cstdint>
 #include <chrono>
@@ -30,7 +30,7 @@
 
 #include "IHasher.hpp"
 
-namespace ls { namespace utils {
+namespace dori { namespace utils {
 
 class MurmurHash : public IHasher {
  public:
@@ -54,6 +54,6 @@ class MurmurHash : public IHasher {
 };
 
 }  // namespace utils
-}  // namespace ls
+}  // namespace dori
 
-#endif  // LIBSTREAM_MURMURHASH_HPP
+#endif  // DORI_MURMURHASH_HPP

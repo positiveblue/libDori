@@ -1,7 +1,7 @@
 #include <string>
 #include <fstream>
 
-#include "libstream.hpp"
+#include "dori.hpp"
 #include "cxxopts/cxxopts.hpp"
 
 struct Options {
@@ -45,13 +45,13 @@ Options parse_options(int argc, char* argv[]) {
 }
 
 
-ls::stream::ICardinality* create_estimator(std::string algorithm, int size) {
-  ls::stream::ICardinality* estimator;
+dori::stream::ICardinality* create_estimator(std::string algorithm, int size) {
+  dori::stream::ICardinality* estimator;
 
   if (algorithm == "recordinality") {
-    estimator = new ls::stream::Recordinality(size);
+    estimator = new dori::stream::Recordinality(size);
   } else if (algorithm == "kmv") {
-    estimator = new ls::stream::KMV(size);
+    estimator = new dori::stream::KMV(size);
   } else {
     // TODO: Exit with error, call --help
     exit(1);
@@ -64,7 +64,7 @@ ls::stream::ICardinality* create_estimator(std::string algorithm, int size) {
 int main(int argc, char* argv[]) {
   Options options = parse_options(argc, argv);
 
-  ls::stream::ICardinality* estimator = 
+  dori::stream::ICardinality* estimator = 
     create_estimator(options.algorithm, options.size);
 
   std::ifstream file(options.input);

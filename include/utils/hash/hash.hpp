@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_HASH_HPP
-#define LIBSTREAM_HASH_HPP
+#ifndef DORI_HASH_HPP
+#define DORI_HASH_HPP
 
 #include "./IHasher.hpp"
 #include "./DefaultHash.hpp"
 #include "./MurmurHash.hpp"
 
-#endif //LIBSTREAM_HASH_HPP
+#endif //DORI_HASH_HPP

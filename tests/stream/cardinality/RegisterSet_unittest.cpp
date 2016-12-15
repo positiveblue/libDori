@@ -2,5 +2,5 @@
 #include "stream/cardinality/RegisterSet.hpp"
 
 TEST_CASE( "Creating RegisterSet object", "[RegisterSet]" ) {
-  ls::stream::RegisterSet RS = ls::stream::RegisterSet(64);
+  dori::stream::RegisterSet RS = dori::stream::RegisterSet(64);
 }

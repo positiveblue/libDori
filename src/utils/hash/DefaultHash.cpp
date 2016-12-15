@@ -22,7 +22,7 @@
 
 #include "utils/hash/DefaultHash.hpp"
 
-namespace ls { namespace utils {
+namespace dori { namespace utils {
   DefaultHash::DefaultHash() {
     std::random_device rd;
     std::mt19937_64 gen(rd());
@@ -49,4 +49,4 @@ namespace ls { namespace utils {
   DefaultHash::~DefaultHash() {}
 
 }  // namespace utils
-}  // namespace ls
+}  // namespace dori

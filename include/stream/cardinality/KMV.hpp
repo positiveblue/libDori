@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_KMV_HPP
-#define LIBSTREAM_KMV_HPP
+#ifndef DORI_KMV_HPP
+#define DORI_KMV_HPP
 
 #include <cstdint>
 #include <string>
@@ -31,7 +31,7 @@
 #include "./RecordSet.hpp"
 
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
 class KMV : public ICardinality {
  public:
@@ -53,6 +53,6 @@ class KMV : public ICardinality {
 };
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori
 
-#endif  // LIBSTREAM_KMV_HPP
+#endif  // DORI_KMV_HPP

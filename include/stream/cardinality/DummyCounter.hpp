@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_DUMMY_COUNTER_HPP
-#define LIBSTREAM_DUMMY_COUNTER_HPP
+#ifndef DORI_DUMMY_COUNTER_HPP
+#define DORI_DUMMY_COUNTER_HPP
 
 #include <cstdint>
 #include <string>
@@ -30,7 +30,7 @@
 #include "./ICardinality.hpp"
 #include "../../utils/hash/hash.hpp"
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
 class DummyCounter : public ICardinality {
  public:
@@ -47,13 +47,13 @@ class DummyCounter : public ICardinality {
   ~DummyCounter();
 
  private:
-  ls::utils::IHasher* hasher;
+  dori::utils::IHasher* hasher;
   std::set<std::string> stringSet;
   std::set<std::uint64_t> hashSet;
   std::uint64_t counter;
 };
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori
 
-#endif  // LIBSTREAM_DUMMY_COUNTER_HPP
+#endif  // DORI_DUMMY_COUNTER_HPP

@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_HPP
-#define LIBSTREAM_HPP
+#ifndef DORI_HPP
+#define DORI_HPP
 
 #include "./stream/stream.hpp"
 #include "./utils/utils.hpp"
 
-#endif //LIBSTREAM_HPP
+#endif //DORI_HPP

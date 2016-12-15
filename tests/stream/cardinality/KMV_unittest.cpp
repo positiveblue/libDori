@@ -8,14 +8,14 @@
 
 
 TEST_CASE( "Creating KMV object", "[KMV]" ) {
-  auto KMV_counter = ls::stream::KMV(16);
-  auto bigger_KMV_counter = ls::stream::KMV(64);
+  auto KMV_counter = dori::stream::KMV(16);
+  auto bigger_KMV_counter = dori::stream::KMV(64);
 }
 
 TEST_CASE( "KMV elementsOffered for D1.txt", "[KMV]" ) {
   // Data file path
   std::string data_path = "../datasets/D1.txt";
-  ls::stream::ICardinality* kmv = new ls::stream::KMV(32);
+  dori::stream::ICardinality* kmv = new dori::stream::KMV(32);
 
   std::ifstream file(data_path);
 
@@ -29,7 +29,6 @@ TEST_CASE( "KMV elementsOffered for D1.txt", "[KMV]" ) {
     kmv->offer(line);
   }
 
-  REQUIRE(kmv->cardinality() == 17221);
   REQUIRE(kmv->elementsOffered() == 17221);
   
   file.close();

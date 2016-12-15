@@ -23,11 +23,11 @@
 
 #include "stream/cardinality/RecordSet.hpp"
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
   RecordSet::RecordSet(std::uint64_t size_, bool isSampling_) : size(size_), 
     isSampling(isSampling_), counter(0), recordCounter(0) {
-      this->hasher = new ls::utils::DefaultHash();
+      this->hasher = new dori::utils::DefaultHash();
     }
 
   bool RecordSet::offer(const std::string &str) {
@@ -88,4 +88,4 @@ namespace ls { namespace stream {
   }
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori

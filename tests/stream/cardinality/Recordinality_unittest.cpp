@@ -8,14 +8,14 @@
 
 
 TEST_CASE( "Creating Recordinality object", "[Recordinality]" ) {
-  auto recordinailty_counter = ls::stream::Recordinality(16);
-  auto bigger_recordinailty_counter = ls::stream::Recordinality(64);
+  auto recordinailty_counter = dori::stream::Recordinality(16);
+  auto bigger_recordinailty_counter = dori::stream::Recordinality(64);
 }
 
 TEST_CASE( "Recordinality elementsOffered for D1.txt", "[Recordinality]" ) {
   // Data file path
   std::string data_path = "../datasets/D1.txt";
-  ls::stream::ICardinality* recordinality = new ls::stream::Recordinality(32);
+  dori::stream::ICardinality* recordinality = new dori::stream::Recordinality(32);
 
   std::ifstream file(data_path);
 

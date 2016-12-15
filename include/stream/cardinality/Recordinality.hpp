@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_RECORDINALITY_HPP
-#define LIBSTREAM_RECORDINALITY_HPP
+#ifndef DORI_RECORDINALITY_HPP
+#define DORI_RECORDINALITY_HPP
 
 #include <cstdint>
 #include <math.h> 
@@ -32,7 +32,7 @@
 #include "./RecordSet.hpp"
 
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
 class Recordinality : public ICardinality {
  public:
@@ -55,6 +55,6 @@ class Recordinality : public ICardinality {
 };
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori
 
-#endif  // LIBSTREAM_RECORDINALITY_HPP
+#endif  // DORI_RECORDINALITY_HPP

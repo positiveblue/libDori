@@ -21,14 +21,14 @@
 // SOFTWARE.
 
 
-#ifndef LIBSTREAM_REGISTER_SET_HPP
-#define LIBSTREAM_REGISTER_SET_HPP
+#ifndef DORI_REGISTER_SET_HPP
+#define DORI_REGISTER_SET_HPP
 
 #include <cstdint>
 #include <vector>
 #include <math.h>         /* pow, log2 */
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
 
 class RegisterSet {
  public:
@@ -52,6 +52,6 @@ class RegisterSet {
 };
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori
 
-#endif //LIBSTREAM_REGISTER_SET_HPP
+#endif //DORI_REGISTER_SET_HPP

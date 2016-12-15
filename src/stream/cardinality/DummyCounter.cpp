@@ -23,10 +23,10 @@
 
 #include "stream/cardinality/DummyCounter.hpp"
 
-namespace ls { namespace stream {
+namespace dori { namespace stream {
   DummyCounter::DummyCounter() {
     counter = 0;
-    this->hasher = new ls::utils::MurmurHash();
+    this->hasher = new dori::utils::DefaultHash();
   }
 
   bool DummyCounter::offer(const std::string &str) {
@@ -59,4 +59,4 @@ namespace ls { namespace stream {
   }
 
 }  // namespace stream
-}  // namespace ls
+}  // namespace dori
