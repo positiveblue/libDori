@@ -20,11 +20,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_HASH_HPP
-#define LIBSTREAM_HASH_HPP
+#include "utils/hash/DefaultHash.hpp"
 
-#include "./IHasher.hpp"
-#include "./DefaultHash.hpp"
-#include "./MurmurHash.hpp"
+namespace ls { namespace utils {
+  DefaultHash::DefaultHash() {
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
 
-#endif //LIBSTREAM_HASH_HPP
+    std::uniform_int_distribution<unsigned long long> dis;
+
+    this->seed = dis(gen);
+  }
+
+  DefaultHash::DefaultHash(std::uint64_t seed_) : seed(seed_) {}
+
+  std::uint32_t DefaultHash::hash(const char *ptr, std::uint32_t size) {}
+
+  std::uint32_t DefaultHash::hash(const std::string &str) {
+    return (std::hash<std::string>{}(str) ^ this->seed);
+  }
+
+  std::uint64_t DefaultHash::hash64(const char *ptr, std::uint32_t size) {}
+
+  std::uint64_t DefaultHash::hash64(const std::string &str) {
+    return (std::hash<std::string>{}(str) ^ this->seed);
+  }
+
+  DefaultHash::~DefaultHash() {}
+
+}  // namespace utils
+}  // namespace ls

@@ -20,11 +20,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef LIBSTREAM_HASH_HPP
-#define LIBSTREAM_HASH_HPP
 
-#include "./IHasher.hpp"
-#include "./DefaultHash.hpp"
-#include "./MurmurHash.hpp"
+#ifndef LIBSTREAM_DEFAULT_HASH_HPP
+#define LIBSTREAM_DEFAULT_HASH_HPP
 
-#endif //LIBSTREAM_HASH_HPP
+#include <cstdint>
+#include <random>
+#include <string>
+#include <unordered_set>
+
+#include "IHasher.hpp"
+
+namespace ls { namespace utils {
+
+class DefaultHash : public IHasher {
+ public:
+  DefaultHash();
+
+  DefaultHash(std::uint64_t seed_);
+
+  std::uint32_t hash(const char *ptr, std::uint32_t size);
+
+  std::uint32_t hash(const std::string &str);
+
+  std::uint64_t hash64(const char *ptr, std::uint32_t size);
+
+  std::uint64_t hash64(const std::string &str);
+
+  ~DefaultHash();
+
+private:
+  std::hash<std::string> hasher;
+
+  std::uint64_t seed;
+};
+
+}  // namespace utils
+}  // namespace ls
+
+#endif  // LIBSTREAM_DEFAULT_HASH_HPP
+
