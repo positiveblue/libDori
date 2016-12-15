@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 #include "stream/cardinality/KMV.hpp"
+#include <iostream>
 
 namespace ls { namespace stream {
 
@@ -41,11 +42,9 @@ namespace ls { namespace stream {
 
     double distance = 0xFFFFFFFFFFFFFFFF - smallestRecord;
 
-    return distance;
-
     double m = distance/records.size();
 
-    return 1.0/m;
+    return 0xFFFFFFFFFFFFFFFF/m;
   }
 
   std::uint64_t KMV::elementsOffered() {
