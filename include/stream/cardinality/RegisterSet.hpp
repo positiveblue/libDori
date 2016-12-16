@@ -36,10 +36,13 @@ class RegisterSet {
 
   bool offer(std::uint64_t bits);
 
+  std::uint64_t getCounter();
 
+  std::uint64_t getZerosCounter();
+
+  std::uint64_t getPosition(std::uint64_t pos); 
 
  private:
-
   std::uint64_t getIndex(std::uint64_t bits);
   std::uint64_t getOffset(std::uint64_t bits);
 
