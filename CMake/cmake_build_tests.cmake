@@ -2,7 +2,7 @@
 # ==================
 include(CTest)
 
-option (BUILD_TESTS "Whether we should build it as a shared library or not" ON)
+option (BUILD_TESTS "Whether we should build it as a shared library or not" OFF)
 if(BUILD_TESTS)
 
   file(GLOB_RECURSE LDORI_TEST_SOURCE RELATIVE "${PROJECT_SOURCE_DIR}"

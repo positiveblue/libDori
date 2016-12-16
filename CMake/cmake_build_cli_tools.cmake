@@ -1,7 +1,7 @@
 # Cli Tools
 # ==================
 
-option (BUILD_CARDINALITY "Whether we should build cardinality cli or not" ON)
+option (BUILD_CARDINALITY "Whether we should build cardinality cli or not" OFF)
 if(BUILD_CARDINALITY)
 
   set(LDORI_CARDINALITY_SOURCE "${PROJECT_SOURCE_DIR}/cli/stream/cardinality.cpp")
