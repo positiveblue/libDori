@@ -18,7 +18,7 @@ Options parse_options(int argc, char* argv[]) {
   cxxopts::Options options(argv[0]);
   
   options.add_options()
-    ("a,algorithm", "recordinality, kmv, hyperloglog", cxxopts::value<std::string>()
+    ("a,algorithm", "recordinality, kmv, hll", cxxopts::value<std::string>()
       ->default_value("recordinality"))
     ("s,size", "Aveilable memory", cxxopts::value<int>()
       ->default_value("64"))
@@ -52,6 +52,8 @@ dori::stream::ICardinality* create_estimator(std::string algorithm, int size) {
     estimator = new dori::stream::Recordinality(size);
   } else if (algorithm == "kmv") {
     estimator = new dori::stream::KMV(size);
+  } else if (algorithm == "hll") {
+    estimator = new dori::stream::HyperLogLog(size);
   } else {
     // TODO: Exit with error, call --help
     exit(1);
