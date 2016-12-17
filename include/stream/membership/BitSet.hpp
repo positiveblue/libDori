@@ -20,10 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_STREAM_HPP
-#define DORI_STREAM_HPP
+#ifndef DORI_BIT_SET_HPP
+#define DORI_BIT_SET_HPP
 
-#include "./cardinality/cardinality.hpp"
-#include "./membership/membership.hpp"
+#include <cstdint>
+#include <math.h> 
+#include <vector>
 
-#endif //DORI_STREAM_HPP
+namespace dori { namespace stream {
+
+class BitSet {
+ public:
+  BitSet(std::uint64_t size_);
+
+  bool getValue(std::uint64_t position);
+
+  void flip(std::uint64_t position);
+
+  std::uint64_t size();
+
+  void clear();
+
+  ~BitSet();
+
+ private:
+    char mask(char position);
+
+    std::uint64_t _size;
+    std::vector<char>* bitSet; 
+};
+
+}  // namespace stream
+}  // namespace dori
+
+#endif //DORI_BLOOM_FILTER_HPP

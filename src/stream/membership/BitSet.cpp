@@ -20,10 +20,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_STREAM_HPP
-#define DORI_STREAM_HPP
+#include "stream/membership/BitSet.hpp"
 
-#include "./cardinality/cardinality.hpp"
-#include "./membership/membership.hpp"
+namespace dori { namespace stream {
+  BitSet::BitSet(std::uint64_t size_) : _size(size_) {
+    double vectorPositions = ceil(size_/8);
+    this->bitSet = new std::vector<char>(vectorPositions, 0);
+  }
 
-#endif //DORI_STREAM_HPP
+  bool BitSet::getValue(std::uint64_t position) {
+    std::uint64_t bucket = floor(position/8.0);
+    char bucketPosition = position - bucket*8;
+    
+    return ((this->bitSet->at(bucket)) & (mask(bucketPosition)));
+  }
+
+  void BitSet::flip(std::uint64_t position) {
+    std::uint64_t bucket = floor(position/8.0);
+    char bucketPosition = position - bucket*8;
+
+    this->bitSet->at(bucket) = this->bitSet->at(bucket)^(mask(bucketPosition));
+  }
+
+  void BitSet::clear() {
+    std::fill(this->bitSet->begin(), this->bitSet->end(), 0);
+  }
+
+  std::uint64_t BitSet::size() {
+    return this->_size;
+  }
+
+  BitSet::~BitSet() {
+    delete this->bitSet;
+  }
+
+  char BitSet::mask(char position) {
+    return 1 << position;
+  }
+
+}  // namespace stream
+}  // namespace dori

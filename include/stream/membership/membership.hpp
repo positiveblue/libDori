@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_STREAM_HPP
-#define DORI_STREAM_HPP
+#ifndef DORI_MEMBERSHIP_HPP
+#define DORI_MEMBERSHIP_HPP
 
-#include "./cardinality/cardinality.hpp"
-#include "./membership/membership.hpp"
+#include "./BitSet.hpp"
+#include "./BloomFilter.hpp"
 
-#endif //DORI_STREAM_HPP
+#endif //DORI_MEMBERSHIP_HPP
