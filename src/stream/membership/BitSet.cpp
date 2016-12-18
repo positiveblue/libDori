@@ -42,6 +42,13 @@ namespace dori { namespace stream {
     this->bitSet->at(bucket) = this->bitSet->at(bucket)^(mask(bucketPosition));
   }
 
+  void BitSet::setOne(std::uint64_t position) {
+    std::uint64_t bucket = floor(position/8.0);
+    char bucketPosition = position - bucket*8;
+
+    this->bitSet->at(bucket) = this->bitSet->at(bucket) | (mask(bucketPosition));
+  }
+
   void BitSet::clear() {
     std::fill(this->bitSet->begin(), this->bitSet->end(), 0);
   }

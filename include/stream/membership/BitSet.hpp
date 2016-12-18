@@ -37,6 +37,8 @@ class BitSet {
 
   void flip(std::uint64_t position);
 
+  void setOne(std::uint64_t position);
+
   std::uint64_t size();
 
   void clear();
