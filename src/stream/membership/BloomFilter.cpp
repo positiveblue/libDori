@@ -21,26 +21,70 @@
 // SOFTWARE.
 
 #include "stream/membership/BloomFilter.hpp"
+#include <iostream>
+
 
 namespace dori { namespace stream {
 
   BloomFilter::BloomFilter(std::uint64_t n_, double precision_) : nValues(n_),
     precision(precision_) {
 
-    this->nBits = -n_*log(precision_) / pow(log(2),2);
-    double hashFunc = this->nBits/precision_ * log(2);
-    this->nHashFunctions = ceil(hashFunc);
 
+    this->nBits = ceil((n_ * log(precision_)) / log(1.0 / (pow(2.0, log(2.0)))));
+
+    double hashFunc = round(log(2.0) * (this->nBits / (double)n_));
+    
+    this->bitSet = new dori::stream::BitSet(this->nBits);
+    
+    
+    this->nHashFunctions = ceil(hashFunc);
+    this->hashFunctions = 
+      new std::vector<dori::utils::IHasher*> (this->nHashFunctions);
+
+    for (int i = 0; i < this->nHashFunctions; ++i) {
+      this->hashFunctions->at(i) = new dori::utils::DefaultHash(); 
+    }
     
   }
 
-  bool BloomFilter::contains(const std::string &str) {}
+  bool BloomFilter::contains(const std::string &str) {
+    for (int i = 0; i < this->nHashFunctions; ++i) {
+      std::uint64_t hashValue = (this->hashFunctions->at(i))->hash64(str);
+      std::uint64_t position = hashValue % this->nBits;
+      if (not (this->bitSet->getValue(position))) {
+        return false;
+      }
+    }
 
-  void BloomFilter::insert(const std::string &str) {}
+    return true;
+  }
 
-  void BloomFilter::clear() {}
+  void BloomFilter::insert(const std::string &str) {
+    for (int i = 0; i < this->nHashFunctions; ++i) {
+      std::uint64_t hashValue = (this->hashFunctions->at(i))->hash64(str);
+      std::uint64_t position = hashValue % this->nBits;
+      this->bitSet->setOne(position);
+    }
+  }
 
-  std::uint64_t BloomFilter::getSize() {}
+  void BloomFilter::clear() {
+    this->bitSet->clear();
+  }
+
+  std::uint64_t BloomFilter::size() {
+    return this->nBits;
+  }
+
+  BloomFilter::~BloomFilter() {
+    delete this->bitSet;
+
+    for (int i = 0; i < this->nHashFunctions; ++i) {
+      delete this->hashFunctions->at(i); 
+    }
+    
+    delete this->hashFunctions;
+  
+  }
 
 }  // namespace stream
 }  // namespace dori

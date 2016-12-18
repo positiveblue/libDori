@@ -43,8 +43,9 @@ class BloomFilter {
 
   void clear();
 
-  std::uint64_t getSize(); 
+  std::uint64_t size(); 
 
+  ~BloomFilter();
  private:
   std::uint64_t nValues;
   double precision;
@@ -53,6 +54,7 @@ class BloomFilter {
   std::uint64_t nHashFunctions;
 
   dori::stream::BitSet* bitSet;
+  std::vector<dori::utils::IHasher*> *hashFunctions;
 };
 
 }  // namespace stream
