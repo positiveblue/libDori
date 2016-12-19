@@ -82,8 +82,7 @@ int main(int argc, char* argv[]) {
   }
 
   std::string line;
-  while (!file.eof()) {
-    std::getline(file, line);
+  while (file >> line) {
     estimator->offer(line);
   }
 
