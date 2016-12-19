@@ -44,6 +44,10 @@ include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_tests.cmake)
 # ==================
 include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_cli_tools.cmake)
 
+# Build experiments
+# ==================
+include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_experiments.cmake)
+
 
 
 
