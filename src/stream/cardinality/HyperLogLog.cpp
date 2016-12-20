@@ -52,14 +52,13 @@ namespace dori { namespace stream {
 
     // Correcting bias
     if (estimation <= (5/2*(this->size))) {
-      std::cout << "Correcting bias 1..." << std::endl;
       std::uint64_t numberOfZeros = this->registerSet->getZerosCounter();
       estimation = this->size * log(this->size/numberOfZeros);
     } else if (estimation > 1.0/30*log(1-estimation/pow(2,32))) {
       estimation = -pow(2,32)*log2(1-estimation/pow(2,32));
     }
     
-    return estimation;
+    return (1.0/0.7) * estimation;
   }
 
   std::uint64_t HyperLogLog::elementsOffered() {

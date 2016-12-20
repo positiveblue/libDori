@@ -26,7 +26,7 @@ dori::stream::ICardinality* create_estimator(std::string algorithm, int size=64)
   return estimator;
 }
 
-void preprocessing(std::string file_name, std::string algorithm, int memory) {
+void preprocessing(std::string file_name, std::string algorithm, int memory, int N) {
   auto estimator = create_estimator("dummy");
   
   std::ifstream file(file_name);
@@ -43,10 +43,10 @@ void preprocessing(std::string file_name, std::string algorithm, int memory) {
     estimator->offer(word);
   }
 
-  std::cout << file_name << ' ' << estimator->cardinality() << ' '
+  std::cout << estimator->cardinality() << ' '
     << estimator ->elementsOffered() << std::endl;
   
-  std::cout << algorithm << ' ' << memory << std::endl;
+  std::cout << algorithm << ' ' << memory << ' ' << N << std::endl;
 }
 
 void processing(std::string file_name, std::string algorithm, int memory) {
@@ -69,10 +69,9 @@ int main(int argc, char* argv[]) {
   std::string file_name = argv[1];
   std::string algorithm = argv[2];
   int memory = strtol(argv[3], NULL, 10);
+  int N = strtol(argv[4], NULL, 10);
 
-  preprocessing(file_name, algorithm, memory);
-
-  int N = 100;
+  preprocessing(file_name, algorithm, memory, N);
 
   for (int i = 0; i < N; ++i) {
     processing(file_name, algorithm, memory);
