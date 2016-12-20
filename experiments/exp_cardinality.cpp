@@ -12,7 +12,9 @@ dori::stream::ICardinality* create_estimator(std::string algorithm, int size=64)
     estimator = new dori::stream::Recordinality(size);
   } else if (algorithm == "kmv") {
     estimator = new dori::stream::KMV(size);
-  } else if (algorithm == "hll") {
+  } else if (algorithm == "ikmv") {
+    estimator = new dori::stream::IKMV(size);
+  }  else if (algorithm == "hll") {
     estimator = new dori::stream::HyperLogLog(size);
   } else if (algorithm == "dummy") {
     estimator = new dori::stream::DummyCounter();  

@@ -5,7 +5,7 @@ import os
 
 def generate_cmd(m_file, algorithm, memory):
   # ./exp_cardinality data/1000.txt recordinality 16 500
-  data_path = "../data/"
+  data_path = "datasets/"
   file_path = data_path + m_file + ".txt"
   
   cmd = "./exp_cardinality " + file_path 
@@ -32,13 +32,14 @@ def main():
   
   list_of_files = ["1000", "5000", "10000", "25000", "50000", "100000", "250000", \
   "500000", "1000000", "5000000", "10000000"]
-  algorithms = ["recordinality", "kmv", "hll"]
+  algorithms = ["recordinality", "kmv", "ikmv", "hll"]
   memory = ["16", "32", "64", "128", "256", "512"]
 
   for m_file in list_of_files:
     for algorithm in algorithms:
       for m_memory in memory:
         cmd = generate_cmd(m_file, algorithm,m_memory)
+        print ("executing: " + cmd)
         out_file_path = generate_output_file(m_file, algorithm, m_memory)
         with open(out_file_path, "w+") as outfile:
           outfile.write(m_file + ".txt \n")

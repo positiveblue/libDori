@@ -20,18 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_CARDINALITY_HPP
-#define DORI_CARDINALITY_HPP
 
-#include "./RecordSet.hpp"
-#include "./RegisterSet.hpp"
+#ifndef DORI_IKMV_HPP
+#define DORI_IKMV_HPP
 
+#include <cstdint>
+#include <string>
+#include <set>
+#include <algorithm>
 #include "./ICardinality.hpp"
-#include "./DummyCounter.hpp"
-#include "./Recordinality.hpp"
-#include "./KMV.hpp"
-#include "./IKMV.hpp"
-#include "./HyperLogLog.hpp"
+#include "./RecordSet.hpp"
 
 
-#endif //DORI_CARDINALITY_HPP
+namespace dori { namespace stream {
+
+class IKMV : public ICardinality {
+ public:
+  IKMV(std::uint64_t size, bool isSampling_=false);
+
+  bool offer(const std::string &str);
+
+  bool offerHash(std::uint64_t hashValue);
+
+  std::uint64_t cardinality();
+
+  std::uint64_t elementsOffered();
+
+  ~IKMV();
+
+ private:
+  RecordSet* recordSet;
+
+};
+
+}  // namespace stream
+}  // namespace dori
+
+#endif  // DORI_IKMV_HPP
