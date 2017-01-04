@@ -32,6 +32,5 @@
 build
 
 # Experiments folder
-experiments/datasets
 experiments/generator
 experiments/exp_cardinality
