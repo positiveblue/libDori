@@ -4,7 +4,7 @@ import numpy as np
 
 
 def get_path(elements, algorithm, memory):
-  return algorithm + "/" + elements + "/" + elements + "_" + algorithm + "_" + memory + ".out"
+  return "results/" + algorithm + "/" + elements + "/" + elements + "_" + algorithm + "_" + memory + ".out"
 
 def get_data(file_path):
   with open(file_path, "r") as in_file:
@@ -43,7 +43,6 @@ def draw_simple_plot(file_name, n_words, algorithm, memory, values):
 def draw_complex_plot(elements, memory):
   (file_name, n_words, _, _, r_values) = get_data (get_path(elements, "recordinality", memory))
   (_, _, _, _, kmv_values) = get_data (get_path(elements, "kmv", memory))
-  (_, _, _, _, ikmv_values) = get_data (get_path(elements, "ikmv", memory))
   (_, _, _, _, hll_values) = get_data (get_path(elements, "hll", memory))
 
   plt.title(file_name + " with memory " + str(memory))
@@ -65,15 +64,6 @@ def draw_complex_plot(elements, memory):
   sd = round(np.std(y_values), 2)
   kmv_legend = "kmv " + str(mean) + " " + str(sd)
   plt.plot(x_values, y_values, 'bs', label=kmv_legend)
-
-  # Ploting ikmv
-  x_values = range(len(ikmv_values))
-  y_values = map(lambda y: (1.0*y)/n_words, ikmv_values)
-
-  mean = round(np.mean(y_values), 2)
-  sd = round(np.std(y_values), 2)
-  ikmv_legend = "ikmv " + str(mean) + " " + str(sd)
-  plt.plot(x_values, y_values, 'ks', label=ikmv_legend)
 
   # Ploting hll
   x_values = range(len(kmv_values))
