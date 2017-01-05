@@ -13,6 +13,9 @@ if(BUILD_SHARED_LIBS)
   if(CMAKE_CXX_FLAGS)
     set_target_properties(Dori PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
   endif()
+
+  install (TARGETS Dori DESTINATION lib/)
+
 endif()
 
 
