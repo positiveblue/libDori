@@ -10,3 +10,7 @@ foreach (HEADER ${HEADER_LIST})
   string(REGEX REPLACE "include/" "" OUTPUT_DIR ${DIR})
   install (FILES ${HEADER} DESTINATION include/libDori/${OUTPUT_DIR})
 endforeach (HEADER)
+
+if(BUILD_SHARED_LIBS)
+  install (TARGETS Dori DESTINATION lib/)
+endif()
