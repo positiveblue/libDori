@@ -29,21 +29,31 @@ namespace dori { namespace utils {
 
     std::uniform_int_distribution<unsigned long long> dis;
 
-    this->seed = dis(gen);
+    this->_seed = dis(gen);
   }
 
-  DefaultHash::DefaultHash(std::uint64_t seed_) : seed(seed_) {}
+  DefaultHash::DefaultHash(std::uint64_t seed_) {
+    this->_seed = seed_;
+  }
 
   std::uint32_t DefaultHash::hash(const char *ptr, std::uint32_t size) {}
 
   std::uint32_t DefaultHash::hash(const std::string &str) {
-    return (std::hash<std::string>{}(str) ^ this->seed);
+    return (std::hash<std::string>{}(str) ^ this->_seed);
   }
 
   std::uint64_t DefaultHash::hash64(const char *ptr, std::uint32_t size) {}
 
   std::uint64_t DefaultHash::hash64(const std::string &str) {
-    return (std::hash<std::string>{}(str) ^ this->seed);
+    return (std::hash<std::string>{}(str) ^ this->_seed);
+  }
+
+  std::uint64_t DefaultHash::seed() {
+    return this->_seed;
+  }
+
+  void DefaultHash::seed(std::uint64_t seed_) {
+    this->_seed = seed_;
   }
 
   DefaultHash::~DefaultHash() {}

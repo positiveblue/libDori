@@ -36,9 +36,7 @@ class MurmurHash : public IHasher {
  public:
   MurmurHash();
 
-  MurmurHash(std::uint32_t _seed);
-
-  MurmurHash(std::uint64_t _seed);
+  MurmurHash(std::uint64_t seed_);
 
   std::uint32_t hash(const char *ptr, std::uint32_t size);
 
@@ -48,9 +46,11 @@ class MurmurHash : public IHasher {
 
   std::uint64_t hash64(const std::string &str);
 
- private:
-  std::uint32_t seed32;
-  std::uint64_t seed64;
+  std::uint64_t seed();
+
+  void seed(std::uint64_t seed_);
+
+  ~MurmurHash();
 };
 
 }  // namespace utils
