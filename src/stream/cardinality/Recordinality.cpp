@@ -25,18 +25,18 @@
 namespace dori { namespace stream {
 
   Recordinality::Recordinality(std::uint64_t size_, bool isSampling_) {
-    this->recordSet = new dori::stream::RecordSet(size_, isSampling_);
+    _recordSet = new dori::stream::RecordSet(size_, isSampling_);
   }
 
   bool Recordinality::offer(const std::string &str) {
-    this->recordSet->offer(str);
+    _recordSet->offer(str);
   }
 
   bool Recordinality::offerHash(std::uint64_t hashValue) {}
 
   std::uint64_t Recordinality::cardinality() {
-    int k = this->recordSet->getSize();
-    int rk = this->recordSet->getRecordCounter();
+    int k = _recordSet->getSize();
+    int rk = _recordSet->getRecordCounter();
 
     double base = 1.0 + 1.0/k;
     double exp = rk - k + 1;
@@ -47,11 +47,15 @@ namespace dori { namespace stream {
   }
 
   std::uint64_t Recordinality::elementsOffered() {
-    return this->recordSet->getCounter();
+    return _recordSet->getCounter();
   }
 
+//   Recordinality::sample() {
+//    return _recordSet->sample();
+//  }
+
   Recordinality::~Recordinality() {
-    delete this->recordSet;
+    delete _recordSet;
   }
 
 }  // namespace stream

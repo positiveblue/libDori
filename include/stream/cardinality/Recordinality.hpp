@@ -49,9 +49,9 @@ class Recordinality : public ICardinality {
   ~Recordinality();
 
  private:
-  RecordSet* recordSet;
+  RecordSet* _recordSet;
 
-  std::uint64_t counter;
+  std::uint64_t _counter;
 };
 
 }  // namespace stream
