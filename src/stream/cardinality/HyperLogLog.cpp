@@ -24,62 +24,62 @@
 #include "stream/cardinality/HyperLogLog.hpp"
 
 namespace dori { namespace stream {
-  HyperLogLog::HyperLogLog(std::uint64_t size_) : size(size_) {
-    this->registerSet = new dori::stream::RegisterSet(size_);
-    this->hasher = new dori::utils::DefaultHash();
+  HyperLogLog::HyperLogLog(std::uint64_t size_) : _size(size_) {
+    _registerSet = new dori::stream::RegisterSet(size_);
+    _hasher = new dori::utils::DefaultHash();
 
     this->setAlpha(size_);
   }
 
   bool HyperLogLog::offer(const std::string &str) {
-    std::uint64_t hashValue = (this->hasher)->hash64(str);
+    std::uint64_t hashValue = (_hasher)->hash64(str);
     this->offerHash(hashValue);
   }
 
   bool HyperLogLog::offerHash(std::uint64_t hashValue) {
-    this->registerSet->offer(hashValue);
+    _registerSet->offer(hashValue);
   }
 
   std::uint64_t HyperLogLog::cardinality() {
-    double numerator = (this->alpha) * (this->size) * (this->size);
+    double numerator = (_alpha) * (_size) * (_size);
     double denominator = 0;
 
-    for (int i = 0; i < this->size; ++i) {
-      denominator+= (1.0/pow(2, ((this->registerSet)->getPosition(i))));
+    for (int i = 0; i < _size; ++i) {
+      denominator+= (1.0/pow(2, ((_registerSet)->getPosition(i))));
     }
     
     double estimation = numerator/denominator;
 
     // Correcting bias
-    if (estimation <= (5/2*(this->size))) {
-      std::uint64_t numberOfZeros = this->registerSet->getZerosCounter();
-      estimation = this->size * log(this->size/numberOfZeros);
+    if (estimation <= (5/2*(_size))) {
+      std::uint64_t numberOfZeros = _registerSet->getZerosCounter();
+      estimation = _size * log(_size/numberOfZeros);
     } else if (estimation > 1.0/30*log(1-estimation/pow(2,32))) {
       estimation = -pow(2,32)*log2(1-estimation/pow(2,32));
     }
     
-    return (1.0/0.7) * estimation;
+    return (1.0/_alpha) * estimation;
   }
 
   std::uint64_t HyperLogLog::elementsOffered() {
-    return (this->registerSet)->getCounter();
+    return (_registerSet)->getCounter();
   }
 
   void HyperLogLog::setAlpha(std::uint64_t size) {
     switch (size) {
-      case 16: (this->alpha) = 0.673;
+      case 16: (_alpha) = 0.673;
                break;
-      case 32: (this->alpha) = 0.697;
+      case 32: (_alpha) = 0.697;
                break;
-      case 64: (this->alpha) = 0.709;
+      case 64: (_alpha) = 0.709;
                break;
-      default: (this->alpha) = (0.7213 / (1.0 + 1.079/size));
+      default: (_alpha) = (0.7213 / (1.0 + 1.079/size));
     }
   }
 
   HyperLogLog::~HyperLogLog() {
-    delete this->registerSet;
-    delete this->hasher;
+    delete _registerSet;
+    delete _hasher;
   }
 
 }  // namespace stream
