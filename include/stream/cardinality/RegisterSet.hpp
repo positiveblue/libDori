@@ -36,22 +36,22 @@ class RegisterSet {
 
   bool offer(std::uint64_t bits);
 
-  std::uint64_t getCounter();
+  std::uint64_t counter();
 
-  std::uint64_t getZerosCounter();
+  std::uint64_t zerosCounter();
 
-  std::uint64_t getPosition(std::uint64_t pos); 
+  std::uint64_t position(std::uint64_t pos); 
 
  private:
-  std::uint64_t getIndex(std::uint64_t bits);
-  std::uint64_t getOffset(std::uint64_t bits);
+  std::uint64_t index(std::uint64_t bits);
+  std::uint64_t offset(std::uint64_t bits);
 
   std::uint64_t scan1(std::uint64_t bits);
 
-  std::uint64_t size; // Num of registers (is 2**indexSize)
-  std::uint64_t indexSize;
-  std::uint64_t counter;
-  std::vector<std::uint64_t> M;
+  std::uint64_t _size; // Num of registers (is 2**indexSize)
+  std::uint64_t _indexSize;
+  std::uint64_t _counter;
+  std::vector<std::uint64_t> _M;
 };
 
 }  // namespace stream

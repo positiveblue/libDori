@@ -26,34 +26,34 @@
 namespace dori { namespace stream {
 
   RegisterSet::RegisterSet(std::uint64_t size_) {
-    this->size = size_;
-    this->M = std::vector<std::uint64_t> (size_, 0);
-    this->counter = 0;
-    this->indexSize = log2(size_);
+    _size = size_;
+    _M = std::vector<std::uint64_t> (size_, 0);
+    _counter = 0;
+    _indexSize = log2(size_);
   }
 
   bool RegisterSet::offer(std::uint64_t bits) {
-    ++(this->counter);
+    ++(_counter);
     bool modified = false;
 
-    std::uint64_t position = getIndex(bits);
-    std::uint64_t value =  scan1(bits);
+    std::uint64_t position = this->index(bits);
+    std::uint64_t value =  this->scan1(bits);
 
-    if (this->M[position] < value) {
-        M[position] = value;
+    if (_M[position] < value) {
+        _M[position] = value;
         modified = true;
     }
     return modified;
   }
 
-  std::uint64_t RegisterSet::getCounter() {
-    return this->counter;
+  std::uint64_t RegisterSet::counter() {
+    return _counter;
   }
 
-  std::uint64_t RegisterSet::getZerosCounter() {
+  std::uint64_t RegisterSet::zerosCounter() {
     std::uint64_t counter = 0;
 
-    for (auto registerValue : this->M) {
+    for (auto registerValue : _M) {
       if (registerValue == 0) {
         ++counter;
       }
@@ -62,20 +62,20 @@ namespace dori { namespace stream {
     return counter;
   }
 
-  std::uint64_t RegisterSet::getPosition(std::uint64_t pos) {
-    return this->M[pos];
+  std::uint64_t RegisterSet::position(std::uint64_t pos) {
+    return _M[pos];
   }
 
-  std::uint64_t RegisterSet::getIndex(std::uint64_t bits) {
-    return bits >> (64 - (this->indexSize));
+  std::uint64_t RegisterSet::index(std::uint64_t bits) {
+    return bits >> (64 - (_indexSize));
   }
 
-  std::uint64_t RegisterSet::getOffset(std::uint64_t bits) {
-    return bits & (0xFFFFFFFFFFFFFFFF >> (this->indexSize));
+  std::uint64_t RegisterSet::offset(std::uint64_t bits) {
+    return bits & (0xFFFFFFFFFFFFFFFF >> (_indexSize));
   }
 
   std::uint64_t RegisterSet::scan1(std::uint64_t bits) {
-    return (64 - this->indexSize - log2(getOffset(bits)));
+    return (64 - _indexSize - log2(this->offset(bits)));
   }
 
 }  // namespace stream

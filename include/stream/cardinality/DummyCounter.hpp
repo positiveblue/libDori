@@ -47,10 +47,10 @@ class DummyCounter : public ICardinality {
   ~DummyCounter();
 
  private:
-  dori::utils::IHasher* hasher;
-  std::set<std::string> stringSet;
-  std::set<std::uint64_t> hashSet;
-  std::uint64_t counter;
+  dori::utils::IHasher* _hasher;
+  std::set<std::string> _stringSet;
+  std::set<std::uint64_t> _hashSet;
+  std::uint64_t _counter;
 };
 
 }  // namespace stream

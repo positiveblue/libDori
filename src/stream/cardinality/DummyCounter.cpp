@@ -25,37 +25,38 @@
 
 namespace dori { namespace stream {
   DummyCounter::DummyCounter() {
-    counter = 0;
-    this->hasher = new dori::utils::DefaultHash();
+    _counter = 0;
+    _hasher = new dori::utils::DefaultHash();
   }
 
   bool DummyCounter::offer(const std::string &str) {
-    ++counter;
+    ++_counter;
 
-    bool modified = (this->stringSet.find(str) == this->stringSet.end());
+    bool modified = (_stringSet.find(str) == _stringSet.end());
     if (modified) {
-      this->stringSet.insert(str);
-      std::uint64_t hashValue = (this->hasher)->hash(str);
-      this->hashSet.insert(hashValue);
+      _stringSet.insert(str);
+      std::uint64_t hashValue = (_hasher)->hash(str);
+      _hashSet.insert(hashValue);
     }
     
     return modified;
   }
 
   bool DummyCounter::offerHash(std::uint64_t hashValue) {
-
+    ++_counter;
+    _hashSet.insert(hashValue);
   }
 
   std::uint64_t DummyCounter::cardinality() {
-    return stringSet.size();
+    return _stringSet.size();
   }
 
   std::uint64_t DummyCounter::elementsOffered() {
-    return counter;
+    return _counter;
   }
 
   DummyCounter::~DummyCounter() {
-    delete this->hasher;
+    delete _hasher;
   }
 
 }  // namespace stream

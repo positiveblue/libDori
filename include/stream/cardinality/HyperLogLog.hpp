@@ -52,11 +52,11 @@ class HyperLogLog : public ICardinality {
  private:
   void setAlpha(std::uint64_t size);
 
-  dori::utils::IHasher* hasher;
-  dori::stream::RegisterSet* registerSet;
+  dori::utils::IHasher* _hasher;
+  dori::stream::RegisterSet* _registerSet;
 
-  std::uint64_t size;
-  double alpha;
+  std::uint64_t _size;
+  double _alpha;
 
 };
 
