@@ -45,14 +45,14 @@ namespace dori { namespace stream {
     double denominator = 0;
 
     for (int i = 0; i < _size; ++i) {
-      denominator+= (1.0/pow(2, ((_registerSet)->getPosition(i))));
+      denominator+= (1.0/pow(2, ((_registerSet)->position(i))));
     }
     
     double estimation = numerator/denominator;
 
     // Correcting bias
     if (estimation <= (5/2*(_size))) {
-      std::uint64_t numberOfZeros = _registerSet->getZerosCounter();
+      std::uint64_t numberOfZeros = _registerSet->zerosCounter();
       estimation = _size * log(_size/numberOfZeros);
     } else if (estimation > 1.0/30*log(1-estimation/pow(2,32))) {
       estimation = -pow(2,32)*log2(1-estimation/pow(2,32));
@@ -62,7 +62,7 @@ namespace dori { namespace stream {
   }
 
   std::uint64_t HyperLogLog::elementsOffered() {
-    return (_registerSet)->getCounter();
+    return (_registerSet)->counter();
   }
 
   void HyperLogLog::setAlpha(std::uint64_t size) {
