@@ -8,4 +8,5 @@ if(BUILD_CARDINALITY)
 
   add_executable(cardinality ${LDORI_CARDINALITY_SOURCE} ${LDORI_C_CPP_SOURCE} ${LSTREAM_THIRD_PARTY})
 
+  install_targets(/bin cardinality)
 endif()

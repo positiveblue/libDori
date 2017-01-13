@@ -30,8 +30,6 @@
 #include "./DummyCounter.hpp"
 #include "./Recordinality.hpp"
 #include "./KMV.hpp"
-#include "./IKMV.hpp"
 #include "./HyperLogLog.hpp"
-
 
 #endif //DORI_CARDINALITY_HPP

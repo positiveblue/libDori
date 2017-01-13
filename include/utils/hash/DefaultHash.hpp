@@ -47,12 +47,15 @@ class DefaultHash : public IHasher {
 
   std::uint64_t hash64(const std::string &str);
 
+  std::uint64_t seed();
+  
+  void seed(std::uint64_t seed_);
+
   ~DefaultHash();
 
 private:
   std::hash<std::string> hasher;
 
-  std::uint64_t seed;
 };
 
 }  // namespace utils

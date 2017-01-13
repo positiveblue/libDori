@@ -25,33 +25,33 @@
 
 namespace dori { namespace stream {
 
-  RecordSet::RecordSet(std::uint64_t size_, bool isSampling_) : size(size_), 
-    isSampling(isSampling_), counter(0), recordCounter(0) {
-      this->hasher = new dori::utils::DefaultHash();
+  RecordSet::RecordSet(std::uint64_t size_, bool isSampling_) : _size(size_), 
+    _isSampling(isSampling_), _counter(0), _recordCounter(0) {
+      this->_hasher = new dori::utils::DefaultHash();
     }
 
   bool RecordSet::offer(const std::string &str) {
     bool modified = false;
-    ++this->counter;
-    std::uint64_t hashValue = (this->hasher)->hash64(str);
+    ++this->_counter;
+    std::uint64_t hashValue = (this->_hasher)->hash64(str);
 
-    if (this->records.find(hashValue) == this->records.end()) {
-      if ((this->records.size() < (this->size)) ||
-         (*(this->records.begin()) < hashValue)) {
+    if (this->_records.find(hashValue) == this->_records.end()) {
+      if ((this->_records.size() < (this->_size)) ||
+         (*(this->_records.begin()) < hashValue)) {
         
         modified = true;
-        ++this->recordCounter;
+        ++this->_recordCounter;
 
-        this->records.insert(hashValue);
+        this->_records.insert(hashValue);
 
-        if (this->isSampling) {
-            this->sample[hashValue] = str;
+        if (this->_isSampling) {
+            this->_sample[hashValue] = str;
         }
 
-        if (this->records.size() > this->size) {
-          std::uint64_t smallestRecord = *(this->records.begin());
-          this->records.erase(smallestRecord);
-          this->sample.erase(smallestRecord);
+        if (this->_records.size() > this->_size) {
+          std::uint64_t smallestRecord = *(this->_records.begin());
+          this->_records.erase(smallestRecord);
+          this->_sample.erase(smallestRecord);
         }
       }
     }
@@ -59,32 +59,41 @@ namespace dori { namespace stream {
   }
 
   std::uint64_t RecordSet::getSize() {
-    return this->size;
+    return this->_size;
   }
 
   std::uint64_t RecordSet::getCounter() {
-    return this->counter;
+    return this->_counter;
   }
 
   std::uint64_t RecordSet::getRecordCounter() {
-    return this->recordCounter;
+    return this->_recordCounter;
   }
 
   std::set<std::uint64_t> RecordSet::getRecords() {
-    return std::set<std::uint64_t> (this->records);
+    return std::set<std::uint64_t> (this->_records);
   }
 
   std::set<std::string> RecordSet::getSample() {
     std::set<std::string> sample;
 
-    for (auto it=this->sample.begin(); it != this->sample.end(); ++it) {
+    for (auto it=this->_sample.begin(); it != this->_sample.end(); ++it) {
       sample.insert(it->second);
     }
     return sample;
   }
 
+  dori::utils::IHasher* RecordSet::hasher() {
+    return new dori::utils::DefaultHash {this->_hasher->seed()};
+  }
+
+  void RecordSet::hasher(dori::utils::IHasher* hasher_) {
+    delete this->_hasher;
+    this->_hasher = new dori::utils::DefaultHash {hasher_->seed()};
+  }
+
   RecordSet::~RecordSet() {
-    delete this->hasher;
+    delete this->_hasher;
   }
 
 }  // namespace stream

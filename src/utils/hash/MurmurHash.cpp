@@ -25,20 +25,19 @@
 namespace dori { namespace utils {
 
   MurmurHash::MurmurHash() {
-    // TODO(Jordi): Check if the random generator is well done for 32 and 64!
-    unsigned int mt19937Seed =
-      std::chrono::system_clock::now().time_since_epoch().count();
 
     // mt19937 is a standard mersenne_twister_engine
-    std::mt19937 generator (mt19937Seed);
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
 
-    seed32 = generator();
-    seed64 = generator();
+    std::uniform_int_distribution<unsigned long long> dis;
+
+    this->_seed = dis(gen);
   }
 
-  MurmurHash::MurmurHash(std::uint32_t _seed) : seed32 (_seed) {}
-
-  MurmurHash::MurmurHash(std::uint64_t _seed) : seed64 (_seed) {}
+  MurmurHash::MurmurHash(std::uint64_t seed_) {
+    this->_seed = seed_;
+  }
 
   std::uint32_t MurmurHash::hash(const char *ptr, std::uint32_t size) {
     std::uint32_t c1 = 0xcc9e2d51;
@@ -55,7 +54,7 @@ namespace dori { namespace utils {
     int i = 0;
     int l = size / 4; // chunk length
 
-    h = seed32;
+    h = this->_seed;
 
     chunks = (const std::uint32_t *) (d + l * 4); // body
     tail = (const std::uint8_t *) (d + l * 4); // last 8 byte chunk of `key'
@@ -112,6 +111,14 @@ namespace dori { namespace utils {
 
   std::uint64_t MurmurHash::hash64(const std::string &str) {
     return hash(str.data(), str.size());
+  }
+
+  std::uint64_t  MurmurHash::seed() {
+    return this->_seed;
+  }
+
+  void  MurmurHash::seed(std::uint64_t seed_) {
+    this->_seed = seed_;
   }
 
 }  // namespace utils
