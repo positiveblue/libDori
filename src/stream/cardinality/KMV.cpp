@@ -26,17 +26,17 @@
 namespace dori { namespace stream {
 
   KMV::KMV(std::uint64_t size_, bool isSampling_) {
-    this->recordSet = new dori::stream::RecordSet(size_, isSampling_);
+    _recordSet = new dori::stream::RecordSet(size_, isSampling_);
   }
 
   bool KMV::offer(const std::string &str) {
-    this->recordSet->offer(str);
+    _recordSet->offer(str);
   }
 
   bool KMV::offerHash(std::uint64_t hashValue) {}
 
   std::uint64_t KMV::cardinality() {
-    std::set<std::uint64_t> records = this->recordSet->getRecords();
+    std::set<std::uint64_t> records = _recordSet->getRecords();
 
     double smallestRecord = *(records.begin());
 
@@ -48,11 +48,11 @@ namespace dori { namespace stream {
   }
 
   std::uint64_t KMV::elementsOffered() {
-    return this->recordSet->getCounter();
+    return _recordSet->getCounter();
   }
 
   KMV::~KMV() {
-    delete this->recordSet;
+    delete _recordSet;
   }
 
 }  // namespace stream
