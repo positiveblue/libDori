@@ -46,20 +46,23 @@ class RecordSet {
   std::set<std::uint64_t> getRecords();
   std::set<std::string> getSample();
 
+  dori::utils::IHasher* hasher();
+  void hasher(dori::utils::IHasher* hasher_);
+
   ~RecordSet();
 
   private:
-    dori::utils::IHasher* hasher;
+    dori::utils::IHasher* _hasher;
     
-    std::uint64_t size;
-    std::uint64_t counter;
-    std::uint64_t recordCounter;
+    std::uint64_t _size;
+    std::uint64_t _counter;
+    std::uint64_t _recordCounter;
 
-    bool isGrowing;
-    bool isSampling;
+    bool _isGrowing;
+    bool _isSampling;
 
-    std::set<std::uint64_t> records;
-    std::map<std::uint64_t, std::string> sample;
+    std::set<std::uint64_t> _records;
+    std::map<std::uint64_t, std::string> _sample;
 
 };
 
