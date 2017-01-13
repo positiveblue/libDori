@@ -36,7 +36,7 @@ namespace dori { namespace stream {
   bool KMV::offerHash(std::uint64_t hashValue) {}
 
   std::uint64_t KMV::cardinality() {
-    std::set<std::uint64_t> records = _recordSet->getRecords();
+    std::set<std::uint64_t> records = _recordSet->records();
 
     double smallestRecord = *(records.begin());
 
@@ -48,7 +48,7 @@ namespace dori { namespace stream {
   }
 
   std::uint64_t KMV::elementsOffered() {
-    return _recordSet->getCounter();
+    return _recordSet->counter();
   }
 
   KMV::~KMV() {

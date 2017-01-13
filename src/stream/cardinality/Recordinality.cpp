@@ -35,8 +35,8 @@ namespace dori { namespace stream {
   bool Recordinality::offerHash(std::uint64_t hashValue) {}
 
   std::uint64_t Recordinality::cardinality() {
-    int k = _recordSet->getSize();
-    int rk = _recordSet->getRecordCounter();
+    int k = _recordSet->size();
+    int rk = _recordSet->recordCounter();
 
     double base = 1.0 + 1.0/k;
     double exp = rk - k + 1;
@@ -47,7 +47,7 @@ namespace dori { namespace stream {
   }
 
   std::uint64_t Recordinality::elementsOffered() {
-    return _recordSet->getCounter();
+    return _recordSet->counter();
   }
 
 //   Recordinality::sample() {

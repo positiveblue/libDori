@@ -39,12 +39,12 @@ class RecordSet {
 
   bool offer(const std::string &str);
 
-  std::uint64_t getSize();
-  std::uint64_t getCounter();
-  std::uint64_t getRecordCounter();
+  std::uint64_t size();
+  std::uint64_t counter();
+  std::uint64_t recordCounter();
 
-  std::set<std::uint64_t> getRecords();
-  std::set<std::string> getSample();
+  std::set<std::uint64_t> records();
+  std::set<std::string> sample();
 
   dori::utils::IHasher* hasher();
   void hasher(dori::utils::IHasher* hasher_);

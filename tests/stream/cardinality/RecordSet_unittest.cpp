@@ -38,10 +38,10 @@ TEST_CASE( "Creating RecordSet object", "[RecordSet]" ) {
 
 TEST_CASE( "Max size of a RecordSet object", "[RecordSet]" ) {
   auto rs = dori::stream::RecordSet(64);
-  REQUIRE(rs.getSize() == 64);
+  REQUIRE(rs.size() == 64);
 
   auto rs2 = dori::stream::RecordSet(128);
-  REQUIRE(rs2.getSize() == 128);
+  REQUIRE(rs2.size() == 128);
 }
 
 
@@ -58,12 +58,12 @@ TEST_CASE( "offer elements to a RecordSet object", "[RecordSet]" ) {
   }
 
   // With the big RecordSet the counter and the unique counter have to match
-  REQUIRE(rs.getCounter() == words.size());
-  REQUIRE(rs.getRecordCounter() == unique_words.size());
+  REQUIRE(rs.counter() == words.size());
+  REQUIRE(rs.recordCounter() == unique_words.size());
 
   // With the small RecordSet the counter has to match but not the RecordCounter
-  REQUIRE(small_rs.getCounter() == words.size());
-  REQUIRE(small_rs.getRecordCounter() <= unique_words.size());
+  REQUIRE(small_rs.counter() == words.size());
+  REQUIRE(small_rs.recordCounter() <= unique_words.size());
 
 }
 
@@ -79,11 +79,11 @@ TEST_CASE( "Sampling with a RecordSet object", "[RecordSet]" ) {
   }
 
   // RecordSet is not sampling by default
-  auto sample = rs.getSample();
+  auto sample = rs.sample();
   REQUIRE(sample.size() == 0);
 
   // RecordSet is sampling here
-  sample = rs_with_sampling.getSample();
+  sample = rs_with_sampling.sample();
   REQUIRE(sample.size() == unique_words.size());
 
 }
