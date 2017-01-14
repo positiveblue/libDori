@@ -7,6 +7,7 @@
 struct Options {
   int size;
   std::string algorithm;
+  bool print;
   std::string input;
 };
 
@@ -22,6 +23,7 @@ Options parse_options(int argc, char* argv[]) {
       ->default_value("recordinality"))
     ("s,size", "Aveilable memory", cxxopts::value<int>()
       ->default_value("64"))
+    ("p,print", "print sample")
     ("i,input", "Input file", cxxopts::value<std::string>())
     ("help", "Print help")
   ;
@@ -30,6 +32,7 @@ Options parse_options(int argc, char* argv[]) {
 
   res.size = options["size"].as<int>();
   res.algorithm = options["algorithm"].as<std::string>();
+  res.print = options.count("print") > 0;
   
   if (options.count("input") != 1) {
     std::cout << "You need to specify an input file" << std::endl; 
@@ -62,6 +65,9 @@ int main(int argc, char* argv[]) {
 
   std::cout << "Sample of " << sampler->size() << " elements."<< std::endl;
 
-  for (auto element : sampler->sample())
-    std::cout << element << std::endl;
+  if (options.print) {
+    for (auto element : sampler->sample())
+      std::cout << element << std::endl;
+  }
+
 }
