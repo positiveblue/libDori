@@ -25,36 +25,60 @@
 
 namespace dori { namespace stream {
 
-  RecordSet::RecordSet(std::uint64_t size_, bool isSampling_) : _size(size_), 
-    _isSampling(isSampling_), _counter(0), _recordCounter(0) {
+  RecordSet::RecordSet(std::uint64_t size_, bool isSampling_, bool isGrowing_) 
+    : _size(size_), _isSampling(isSampling_), _isGrowing(isGrowing_), 
+    _counter(0), _recordCounter(0) {
       _hasher = new dori::utils::DefaultHash();
-    }
+  }
 
-  bool RecordSet::offer(const std::string &str) {
-    bool modified = false;
-    ++_counter;
-    std::uint64_t hashValue = (_hasher)->hash64(str);
+  bool RecordSet::modify(std::uint64_t hashValue) {
 
     if (_records.find(hashValue) == _records.end()) {
-      if ((_records.size() < (_size)) ||
-         (*(_records.begin()) < hashValue)) {
-        
-        modified = true;
-        ++_recordCounter;
-
+      if (_records.size() < _size) {
         _records.insert(hashValue);
 
-        if (_isSampling) {
-            _sample[hashValue] = str;
+        if (_records.size() == _size) {
+          _breaker = _records.begin();
         }
 
-        if (_records.size() > _size) {
-          std::uint64_t smallestRecord = *(_records.begin());
-          _records.erase(smallestRecord);
-          _sample.erase(smallestRecord);
-        }
+        return true;
+      } else if (*(_breaker) < hashValue) {
+        
+        _records.insert(hashValue);
+        ++_size;
+        ++_breaker;
+        return true;
+      } else if (*(_records.begin()) < hashValue) {
+        _records.insert(hashValue);
+        return true;
       }
     }
+
+    return false;
+  }
+
+  bool RecordSet::offer(const std::string &str) {
+    
+    ++_counter;
+
+    std::uint64_t hashValue = (_hasher)->hash64(str);
+    
+    bool modified = this->modify(hashValue); 
+
+    if (modified) {
+      ++_recordCounter;
+
+      if (_isSampling) {
+        _sample[hashValue] = str;
+      }
+
+      if (_records.size() > _size) {
+        std::uint64_t smallestRecord = *(_records.begin());
+        _records.erase(smallestRecord);
+        _sample.erase(smallestRecord);
+      }
+    }
+
     return modified;
   }
 
