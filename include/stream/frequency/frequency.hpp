@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_STREAM_HPP
-#define DORI_STREAM_HPP
+#ifndef DORI_FREQUENCY_HPP
+#define DORI_FREQUENCY_HPP
 
-#include "./cardinality/cardinality.hpp"
-#include "./frequency/frequency.hpp"
-#include "./membership/membership.hpp"
+#include "./CounterSet.hpp"
 
-#endif //DORI_STREAM_HPP
+#include "./IFrequency.hpp"
+#include "./DummyFrequency.hpp"
+
+
+#endif //DORI_FREQUENCY_HPP
