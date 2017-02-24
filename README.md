@@ -74,14 +74,14 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 
 - **Build from source:**
 
-    First, you must download the libDori code from our [Git repository](https://github.com/jomsdev/libDori)
+    First, you must download the libDori code from our [Git repository](https://github.com/jomsdev/libDori).
 
     To clone the project from Git, `cd` to a suitable location and run
     ```
     git clone https://github.com/jomsdev/libDori.git
     ```
 
-    This will clone the entire contents of the repository. You can check out the current development branch
+    This will clone the entire contents of the repository. You can check out to the current development branch
     if you want to use the last stable version.
 
     To update the project from within the project's folder, you can run the following command:
@@ -89,7 +89,7 @@ libDori can be used directly in a C++ project or or with the provided shell scri
     git pull
     ```
 
-    Once you have downloaded the source code, you can cd into the source code directory and build and install libDori with
+    Once you have downloaded the source code, you can `cd` into the source code directory and build and install libDori with
     ```
     mkdir build
     cd build
@@ -119,7 +119,9 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 
 ## Contributing
 
-First off, thanks for taking the time to contribute! Now, take a moment to be sure your contributions make sense 
+First off, thanks for taking the time to contribute! 
+
+Now, take a moment to be sure your contributions make sense 
 to everyone else and please make sure to read the [Contributing Guide](https://github.com/jomsdev/libDori/blob/master/CONTRIBUTING.md)
 before making a pull request.
 
