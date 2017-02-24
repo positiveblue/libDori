@@ -37,7 +37,7 @@ libDori can be used directly in a C++ project or or with the provided shell scri
         std::string element;
         while (file >> element)
             // If you have the elements already hashed you can use the
-            // offerHash(hash) mehtod instead
+            // offerHash(hash) method instead
             estimator->offer(element);
 
         // The cardinality mehtod offers an estiamtion of the real cardinality of the stream
@@ -71,7 +71,7 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 ## Contributing
 
 First off, thanks for taking the time to contribute! Now, take a moment to be sure your contributions make sense 
-to everyone else and please make sure to read the [Contributing Guide](https://github.com/jomsdev/libDori/blob/readme/CONTRIBUTING.md)
+to everyone else and please make sure to read the [Contributing Guide](https://github.com/jomsdev/libDori/blob/master/CONTRIBUTING.md)
 before making a pull request.
 
 ## Issue tracker
