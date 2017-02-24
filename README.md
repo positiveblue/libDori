@@ -70,6 +70,10 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 
 ## Contributing
 
+First off, thanks for taking the time to contribute! Now, take a moment to be sure your contributions make sense 
+to everyone else and please make sure to read the [Contributing Guide](https://github.com/jomsdev/libDori/blob/readme/CONTRIBUTING.md)
+before making a pull request.
+
 ## Issue tracker
 
 Found a problem? Want a new feature? First of all see if your issue or idea has [already been reported](../../issues).
