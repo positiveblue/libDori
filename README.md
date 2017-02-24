@@ -68,6 +68,53 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 
 ## Quick start
 
+    - **Binaries:**
+        Pre-compiled binaries can be found on the downloads page (well, not yet).
+    
+    - **Build from source:**
+        First, you must download the libDori code from our [Git repository](https://github.com/jomsdev/libDori)
+
+        To clone the project from Git, `cd` to a suitable location and run
+        ```
+        git clone https://github.com/jomsdev/libDori.git
+        ```
+
+        This will clone the entire contents of the repository. You can check out the current development branch
+        if you want to use the last stable version.
+
+        To update the project from within the project's folder, you can run the following command:
+        ```
+        git pull
+        ```
+
+        Once you have downloaded the source code, you can cd into the source code directory and build and install libDori with
+        ```
+        mkdir build
+        cd build
+        cmake ..
+        make
+        # it install the files under /usr/local
+        make install
+        ```
+
+        You can test the installation compiling test.cpp:
+
+        ```cpp
+        #include <dori.hpp>
+
+        int main() {
+            dori::stream::ICardinality* estimator = new dori::stream::HyperLogLog(64);
+        }
+        ```
+
+        Compile test.cpp with the follow command:
+
+        ```
+        clang++ -I /usr/local/include/libDori -o test test.cpp -lDori -std=c++11
+        ```
+
+        You should now be able to run `./test` without any problem.
+
 ## Contributing
 
 First off, thanks for taking the time to contribute! Now, take a moment to be sure your contributions make sense 
