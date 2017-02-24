@@ -1,17 +1,15 @@
 # libDori
 
-### Overview
-
-# Examples
+## Examples
 
 - CLI
 
 - C++ API
 
-# Quick start
+## Quick start
 
-# Contributing
+## Contributing
 
-# Issue tracker
+## Issue tracker
 
-# License
+## License
