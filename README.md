@@ -10,10 +10,10 @@
 
 libDori can be used directly in a C++ project or or with the provided shell scripts and good old Unix IO redirection.
 
-- **CLI**
+- **CLI**:
 
-The code for the command line programs can be found in the cli folder. They are built on top of the C++ library and expose 
-in a convenient way three of the basic features of libDori: Cardinality, Frequent items and Sampling.
+    The code for the command line programs can be found in the cli folder. They are built on top of the C++ library and expose 
+    in a convenient way three of the basic features of libDori: Cardinality, Frequent items and Sampling.
 
     - *Cardinality:* [Todo] 
 
@@ -21,7 +21,7 @@ in a convenient way three of the basic features of libDori: Cardinality, Frequen
 
     - *Sampling:* [Todo] 
 
-Run `cmd --help` for more information.
+    Run `cmd --help` for more information.
 
 - **C++ API**
 
