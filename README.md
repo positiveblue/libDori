@@ -1,4 +1,5 @@
 # libDori
+[![Build Status](https://travis-ci.org/jomsdev/libDori.svg?branch=master)](https://travis-ci.org/jomsdev/libDori)
 
 ## Examples
 
