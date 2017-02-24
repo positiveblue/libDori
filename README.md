@@ -36,7 +36,7 @@ libDori can be used directly in a C++ project or or with the provided shell scri
         // Process each of the elements with the offer method
         std::string element;
         while (file >> element)
-            // if you have the elements already hashed you can use the
+            // If you have the elements already hashed you can use the
             // offerHash(hash) mehtod instead
             estimator->offer(element);
 
@@ -45,12 +45,23 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 
         // The elementsOffered is a simple counter of how many elements had been offered
         std::cout << "Total elements: " << estimator->elementsOffered() << std::endl;
-
         ```
 
     - *Membership:*
         ```cpp
-        
+            // The bloom filter constructor take two params: 
+            // - Number of distinct elements expected
+            // - Probability of failure
+            auto bf = dori::stream::BloomFilter(3000, 0.01);
+            
+            // We insert each one of the elements to the bloom filter
+            std::string element;
+            while (file >> element)
+                bf.insert(element);
+
+            // At any moment we can ask if one element has been inserted or not in the 
+            // BloomFilter (False means always No, meanwhile yes has some failure probabilty) 
+            bf.contains("libDori");
         ```
     
     - *Frequency:*
