@@ -64,10 +64,8 @@ libDori can be used directly in a C++ project or or with the provided shell scri
             bf.contains("libDori");
         ```
     
-    - *Frequency:*
-        ```cpp
-        
-        ```
+    - *Frequency:* [TODO]
+
 ## Quick start
 
 ## Contributing
