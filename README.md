@@ -69,9 +69,11 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 ## Quick start
 
 - **Binaries:**
+
     Pre-compiled binaries can be found on the downloads page (well, not yet).
 
 - **Build from source:**
+
     First, you must download the libDori code from our [Git repository](https://github.com/jomsdev/libDori)
 
     To clone the project from Git, `cd` to a suitable location and run
