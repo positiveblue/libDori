@@ -72,6 +72,9 @@ libDori can be used directly in a C++ project or or with the provided shell scri
 
 ## Issue tracker
 
+Found a problem? Want a new feature? First of all see if your issue or idea has [already been reported](../../issues).
+If it hasn't, just open a [new clear and descriptive issue](../../issues/new).
+
 ## License
 
  LibDori is under the MIT license. See the [LICENSE](https://github.com/jomsdev/libDori/blob/master/LICENSE) file for details.
