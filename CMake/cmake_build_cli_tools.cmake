@@ -11,6 +11,17 @@ if(BUILD_CARDINALITY)
   install_targets(/bin cardinality)
 endif()
 
+
+option (BUILD_FREQUENCY "Whether we should build frequency cli or not" OFF)
+if(BUILD_FREQUENCY)
+
+  set(LDORI_FREQUENCY_SOURCE "${PROJECT_SOURCE_DIR}/cli/stream/frequency.cpp")
+
+  add_executable(frequency ${LDORI_FREQUENCY_SOURCE} ${LDORI_C_CPP_SOURCE} ${LSTREAM_THIRD_PARTY})
+
+  install_targets(/bin frequency)
+endif()
+
 option (BUILD_SAMPLE "Whether we should build sample cli or not" OFF)
 if(BUILD_SAMPLE)
 

@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +20,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_STREAM_HPP
-#define DORI_STREAM_HPP
+#include "stream/frequency/DummyFrequency.hpp"
 
-#include "./cardinality/cardinality.hpp"
-#include "./frequency/frequency.hpp"
-#include "./membership/membership.hpp"
+namespace dori { namespace stream {
 
-#endif //DORI_STREAM_HPP
+  DummyFrequency::DummyFrequency() {}
+
+  bool DummyFrequency::offer(const std::string &str, std::uint64_t count) {
+    _counter+=count;
+    _frequencyCounter[str]+=count;
+  }
+
+  std::uint64_t DummyFrequency::estimateCounter(const std::string &str) {
+    return _frequencyCounter[str];
+  }
+
+  std::map<std::string, std::uint64_t> DummyFrequency::topK() {
+    return _frequencyCounter;
+  }
+
+  std::uint64_t DummyFrequency::elementsOffered() {
+    return _counter;
+  }
+
+  std::uint64_t DummyFrequency::size() {
+    return _frequencyCounter.size();
+  }
+
+  DummyFrequency::~DummyFrequency() {}
+
+}  // namespace stream
+}  // namespace dori

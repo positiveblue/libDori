@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_STREAM_HPP
-#define DORI_STREAM_HPP
 
-#include "./cardinality/cardinality.hpp"
-#include "./frequency/frequency.hpp"
-#include "./membership/membership.hpp"
+#ifndef DORI_IFREQUENCY_HPP
+#define DORI_IFREQUENCY_HPP
 
-#endif //DORI_STREAM_HPP
+#include <cstdint>
+#include <string>
+#include <map>
+
+namespace dori { namespace stream {
+
+class IFrequency {
+ public:
+  virtual bool offer(const std::string &str, std::uint64_t count) = 0;
+
+  virtual std::uint64_t estimateCounter(const std::string &str) = 0;
+
+  virtual std::map<std::string, std::uint64_t> topK() = 0;
+
+  virtual std::uint64_t elementsOffered() = 0;
+
+  virtual std::uint64_t size() = 0;
+
+};
+
+}  // namespace stream
+}  // namespace dori
+
+#endif  // DORI_IFREQUENCY_HPP

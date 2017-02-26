@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_STREAM_HPP
-#define DORI_STREAM_HPP
+#include "stream/frequency/CounterSet.hpp"
 
-#include "./cardinality/cardinality.hpp"
-#include "./frequency/frequency.hpp"
-#include "./membership/membership.hpp"
+namespace dori { namespace stream {
 
-#endif //DORI_STREAM_HPP
+  CounterSet::CounterSet(std::uint64_t w_, std::uint64_t d_) : _w(w_), _d(d_) {
+    _M.resize(w_);
+    for(auto &row : _M)
+      row.resize(d_, 0);
+  }
+
+  std::uint64_t CounterSet::get(std::uint64_t i, std::uint64_t j) {
+    return _M[i][j];
+  }
+  
+  void CounterSet::update(std::uint64_t i, std::uint64_t j, 
+    std::uint64_t value) {
+      _M[i][j] += value;
+  }
+
+  std::uint64_t CounterSet::w() {
+    return _w;
+  }
+
+  std::uint64_t CounterSet::d() {
+    return _d;
+  }
+
+  std::uint64_t CounterSet::size() {
+    return _w*_d;
+  }
+
+  CounterSet::~CounterSet() {
+    
+  }
+
+}  // namespace stream
+}  // namespace dori
