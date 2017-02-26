@@ -113,13 +113,15 @@ namespace dori { namespace utils {
     return hash(str.data(), str.size());
   }
 
-  std::uint64_t  MurmurHash::seed() {
+  std::uint64_t MurmurHash::seed() {
     return this->_seed;
   }
 
-  void  MurmurHash::seed(std::uint64_t seed_) {
+  void MurmurHash::seed(std::uint64_t seed_) {
     this->_seed = seed_;
   }
+
+  MurmurHash::~MurmurHash() {}
 
 }  // namespace utils
 }  // namespace dori

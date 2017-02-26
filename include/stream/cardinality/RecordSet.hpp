@@ -35,34 +35,39 @@ namespace dori { namespace stream {
 
 class RecordSet {
  public:
-  RecordSet(std::uint64_t size_, bool isSampling_=false);
+  RecordSet(std::uint64_t size_, bool isSampling_=false, 
+    bool isGrowing_=false);
 
   bool offer(const std::string &str);
 
-  std::uint64_t getSize();
-  std::uint64_t getCounter();
-  std::uint64_t getRecordCounter();
+  std::uint64_t size();
+  std::uint64_t counter();
+  std::uint64_t recordCounter();
 
-  std::set<std::uint64_t> getRecords();
-  std::set<std::string> getSample();
+  std::set<std::uint64_t> records();
+  std::set<std::string> sample();
 
   dori::utils::IHasher* hasher();
   void hasher(dori::utils::IHasher* hasher_);
 
   ~RecordSet();
 
-  private:
-    dori::utils::IHasher* _hasher;
+ private:
+
+  bool modify(std::uint64_t hashValue);
+
+  dori::utils::IHasher* _hasher;
     
-    std::uint64_t _size;
-    std::uint64_t _counter;
-    std::uint64_t _recordCounter;
+  std::uint64_t _size;
+  std::uint64_t _counter;
+  std::uint64_t _recordCounter;
 
-    bool _isGrowing;
-    bool _isSampling;
+  bool _isGrowing;
+  bool _isSampling;
 
-    std::set<std::uint64_t> _records;
-    std::map<std::uint64_t, std::string> _sample;
+  std::set<std::uint64_t> _records;
+  std::set<std::uint64_t>::iterator _breaker;
+  std::map<std::uint64_t, std::string> _sample;
 
 };
 

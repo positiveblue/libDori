@@ -48,7 +48,7 @@ class KMV : public ICardinality {
   ~KMV();
 
  private:
-  RecordSet* recordSet;
+  RecordSet* _recordSet;
 
 };
 

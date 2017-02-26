@@ -36,8 +36,8 @@ class IHasher {
   virtual std::uint64_t hash64(const char *ptr, std::uint32_t size) = 0;
   virtual std::uint64_t hash64(const std::string &str) = 0;
 
-  virtual std::uint64_t seed();
-  virtual void seed(std::uint64_t seed_);
+  virtual std::uint64_t seed() = 0;
+  virtual void seed(std::uint64_t seed_) = 0;
 
   std::uint64_t _seed;
 };

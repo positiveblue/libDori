@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,43 +21,30 @@
 // SOFTWARE.
 
 
-#include "stream/cardinality/DummyCounter.hpp"
+#ifndef DORI_IFREQUENCY_HPP
+#define DORI_IFREQUENCY_HPP
+
+#include <cstdint>
+#include <string>
+#include <map>
 
 namespace dori { namespace stream {
-  DummyCounter::DummyCounter() {
-    _counter = 0;
-    _hasher = new dori::utils::DefaultHash();
-  }
 
-  bool DummyCounter::offer(const std::string &str) {
-    ++_counter;
+class IFrequency {
+ public:
+  virtual bool offer(const std::string &str, std::uint64_t count) = 0;
 
-    bool modified = (_stringSet.find(str) == _stringSet.end());
-    if (modified) {
-      _stringSet.insert(str);
-      std::uint64_t hashValue = (_hasher)->hash(str);
-      _hashSet.insert(hashValue);
-    }
-    
-    return modified;
-  }
+  virtual std::uint64_t estimateCounter(const std::string &str) = 0;
 
-  bool DummyCounter::offerHash(std::uint64_t hashValue) {
-    ++_counter;
-    _hashSet.insert(hashValue);
-  }
+  virtual std::map<std::string, std::uint64_t> topK() = 0;
 
-  std::uint64_t DummyCounter::cardinality() {
-    return _stringSet.size();
-  }
+  virtual std::uint64_t elementsOffered() = 0;
 
-  std::uint64_t DummyCounter::elementsOffered() {
-    return _counter;
-  }
+  virtual std::uint64_t size() = 0;
 
-  DummyCounter::~DummyCounter() {
-    delete _hasher;
-  }
+};
 
 }  // namespace stream
 }  // namespace dori
+
+#endif  // DORI_IFREQUENCY_HPP

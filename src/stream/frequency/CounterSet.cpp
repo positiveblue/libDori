@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,43 +20,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
-#include "stream/cardinality/DummyCounter.hpp"
+#include "stream/frequency/CounterSet.hpp"
 
 namespace dori { namespace stream {
-  DummyCounter::DummyCounter() {
-    _counter = 0;
-    _hasher = new dori::utils::DefaultHash();
+
+  CounterSet::CounterSet(std::uint64_t w_, std::uint64_t d_) : _w(w_), _d(d_) {
+    _M.resize(w_);
+    for(auto &row : _M)
+      row.resize(d_, 0);
   }
 
-  bool DummyCounter::offer(const std::string &str) {
-    ++_counter;
+  std::uint64_t CounterSet::get(std::uint64_t i, std::uint64_t j) {
+    return _M[i][j];
+  }
+  
+  void CounterSet::update(std::uint64_t i, std::uint64_t j, 
+    std::uint64_t value) {
+      _M[i][j] += value;
+  }
 
-    bool modified = (_stringSet.find(str) == _stringSet.end());
-    if (modified) {
-      _stringSet.insert(str);
-      std::uint64_t hashValue = (_hasher)->hash(str);
-      _hashSet.insert(hashValue);
-    }
+  std::uint64_t CounterSet::w() {
+    return _w;
+  }
+
+  std::uint64_t CounterSet::d() {
+    return _d;
+  }
+
+  std::uint64_t CounterSet::size() {
+    return _w*_d;
+  }
+
+  CounterSet::~CounterSet() {
     
-    return modified;
-  }
-
-  bool DummyCounter::offerHash(std::uint64_t hashValue) {
-    ++_counter;
-    _hashSet.insert(hashValue);
-  }
-
-  std::uint64_t DummyCounter::cardinality() {
-    return _stringSet.size();
-  }
-
-  std::uint64_t DummyCounter::elementsOffered() {
-    return _counter;
-  }
-
-  DummyCounter::~DummyCounter() {
-    delete _hasher;
   }
 
 }  // namespace stream

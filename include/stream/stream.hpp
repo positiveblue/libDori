@@ -24,6 +24,7 @@
 #define DORI_STREAM_HPP
 
 #include "./cardinality/cardinality.hpp"
+#include "./frequency/frequency.hpp"
 #include "./membership/membership.hpp"
 
 #endif //DORI_STREAM_HPP

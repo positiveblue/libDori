@@ -7,6 +7,7 @@
 struct Options {
   int size;
   std::string algorithm;
+  bool print;
   std::string input;
 };
 
@@ -18,21 +19,20 @@ Options parse_options(int argc, char* argv[]) {
   cxxopts::Options options(argv[0]);
   
   options.add_options()
-    ("a,algorithm", "recordinality, kmv, hll, dummy", cxxopts::value<std::string>()
+    ("a,algorithm", "recordinality", cxxopts::value<std::string>()
       ->default_value("recordinality"))
     ("s,size", "Aveilable memory", cxxopts::value<int>()
       ->default_value("64"))
+    ("p,print", "print sample")
     ("i,input", "Input file", cxxopts::value<std::string>())
     ("help", "Print help")
   ;
 
-
-
   options.parse(argc, argv);
 
-  
   res.size = options["size"].as<int>();
   res.algorithm = options["algorithm"].as<std::string>();
+  res.print = options.count("print") > 0;
   
   if (options.count("input") != 1) {
     std::cout << "You need to specify an input file" << std::endl; 
@@ -44,34 +44,11 @@ Options parse_options(int argc, char* argv[]) {
   return res;
 }
 
-
-dori::stream::ICardinality* create_estimator(std::string algorithm, int size) {
-  dori::stream::ICardinality* estimator;
-
-  if (algorithm == "recordinality") {
-    estimator = new dori::stream::Recordinality(size);
-  } else if (algorithm == "kmv") {
-    estimator = new dori::stream::KMV(size);
-  } else if (algorithm == "hll") {
-    estimator = new dori::stream::HyperLogLog(size);
-  } else if (algorithm == "dummy") {
-    estimator = new dori::stream::DummyCounter();  
-  } else {
-    // TODO: Exit with error, call --help
-    std::cout << "Error: algorithm " << algorithm  <<
-      " does not exist" << std::endl;
-    exit(1);
-  }
-
-  return estimator;
-}
-
-
 int main(int argc, char* argv[]) {
   Options options = parse_options(argc, argv);
 
-  dori::stream::ICardinality* estimator = 
-    create_estimator(options.algorithm, options.size);
+  dori::stream::RecordSet* sampler = 
+    new dori::stream::RecordSet(options.size, true);
 
   std::ifstream file(options.input);
 
@@ -81,11 +58,16 @@ int main(int argc, char* argv[]) {
     exit(1);
   }
 
-  std::string line;
-  while (file >> line) {
-    estimator->offer(line);
+  std::string word;
+  while (file >> word) {
+    sampler->offer(word);
   }
 
-  std::cout << "Cardinality: " << estimator->cardinality() << std::endl;
-  std::cout << "Total elements: " << estimator->elementsOffered() << std::endl;
+  std::cout << "Sample of " << sampler->size() << " elements."<< std::endl;
+
+  if (options.print) {
+    for (auto element : sampler->sample())
+      std::cout << element << std::endl;
+  }
+
 }
