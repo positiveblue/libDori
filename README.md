@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/jomsdev/libDori/badge.svg?branch=master)](https://coveralls.io/github/jomsdev/libDori?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[TODO]: General description of the library
 
 ## Examples
 
