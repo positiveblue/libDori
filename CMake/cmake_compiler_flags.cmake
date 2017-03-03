@@ -1,6 +1,6 @@
 message(STATUS "Building with ${CMAKE_CXX_COMPILER_ID} compiler")
 
-set (CXX14_COMPILER_FLAGS "-std=c++14")
+set (CXX14_COMPILER_FLAGS " ") # "-std=c++14")
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
