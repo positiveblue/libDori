@@ -9,7 +9,6 @@ addons:
       - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
     packages:
       - cmake
-      - cmake-data
 
 before_install:
   - sudo apt-get update -qq
@@ -17,7 +16,7 @@ before_install:
 script:
    - mkdir build
    - cd build
-   - cmake .. && make
+   - cmake -DBUILD_TESTS .. && make
 
 notifications:
   email: false
