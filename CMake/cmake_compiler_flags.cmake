@@ -18,6 +18,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
 
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
+    set (CXX14_COMPILER_FLAGS "-std=c++11")
     set (COMPILER_SPEC_FLAGS "-w"
         # "-W -Wall -Wno-return-type -Wno-write-strings -Wno-strict-aliasing -Wno-format -Wno-deprecated -Wno-unused-variable -Wno-unused-parameter -Wno-sign-compare -Wno-unused-local-typedefs"
     )
