@@ -23,13 +23,15 @@ matrix:
             - clang-3.7
       env: COMPILER=clang++-3.7
 
-
-install:
-  - curl https://cmake.org/files/v3.3/cmake-3.3.2-Linux-x86_64.tar.gz | sudo tar -x -z --strip-components 1 -C /usr
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
+    packages:
+      - cmake
+      - cmake-data
 
 before_install:
-  - test -n $CC  && unset CC
-  - test -n $CXX && unset CXX
   - sudo apt-get update -qq
   - mkdir build
   - cd build
