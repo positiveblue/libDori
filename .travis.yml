@@ -1,6 +1,7 @@
 # Use new trusty images, should yield newer compilers and packages
 sudo: required
 dist: precise
+language: cpp
 
 matrix:
   include:
@@ -32,11 +33,12 @@ addons:
 
 before_install:
   - sudo apt-get update -qq
+  - mkdir build
+  - cd build
+  - cmake -DBUILD_TESTS=ON ..
 
 script:
-   - mkdir build
-   - cd build
-   - cmake -DBUILD_TESTS=ON .. && make
+  - make
 
 notifications:
   email: false
