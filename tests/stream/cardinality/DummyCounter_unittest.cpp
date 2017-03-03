@@ -11,9 +11,9 @@ TEST_CASE( "Creating DummyCounter object", "[DummyCounter]" ) {
 }
 
 // Testing with 3 datasets provide with the library
-TEST_CASE( "DummyCounter cardinality for D1.txt", "[DummyCounter]" ) {
+TEST_CASE( "DummyCounter cardinality for 1000.txt", "[DummyCounter]" ) {
   // Data file path
-  std::string data_path = "../datasets/D1.txt";
+  std::string data_path = "../datasets/1000.txt";
   dori::stream::ICardinality* DC = new dori::stream::DummyCounter();
 
   std::ifstream file(data_path);
@@ -28,15 +28,15 @@ TEST_CASE( "DummyCounter cardinality for D1.txt", "[DummyCounter]" ) {
     DC->offer(line);
   }
 
-  REQUIRE(DC->cardinality() == 3187);
-  REQUIRE(DC->elementsOffered() == 17221);
+  REQUIRE(DC->cardinality() == 1000);
+  REQUIRE(DC->elementsOffered() == 1000);
   
   file.close();
 }
 
-TEST_CASE( "DummyCounter cardinality for D2.txt", "[DummyCounter]" ) {
+TEST_CASE( "DummyCounter cardinality for 5000.txt", "[DummyCounter]" ) {
   // Data file path
-  std::string data_path = "../datasets/D2.txt";
+  std::string data_path = "../datasets/5000.txt";
   dori::stream::ICardinality* DC = new dori::stream::DummyCounter();
 
   std::ifstream file(data_path);
@@ -51,15 +51,15 @@ TEST_CASE( "DummyCounter cardinality for D2.txt", "[DummyCounter]" ) {
     DC->offer(line);
   }
 
-  REQUIRE(DC->cardinality() == 23136);
-  REQUIRE(DC->elementsOffered() == 384224);
+  REQUIRE(DC->cardinality() == 5000);
+  REQUIRE(DC->elementsOffered() == 5000);
   
   file.close();
 }
 
-TEST_CASE( "DummyCounter cardinality for D3.txt", "[DummyCounter]" ) {
+TEST_CASE( "DummyCounter cardinality for 10000.txt", "[DummyCounter]" ) {
   // Data file path
-  std::string data_path = "../datasets/D3.txt";
+  std::string data_path = "../datasets/10000.txt";
   dori::stream::ICardinality* DC = new dori::stream::DummyCounter();
 
   std::ifstream file(data_path);
@@ -74,8 +74,8 @@ TEST_CASE( "DummyCounter cardinality for D3.txt", "[DummyCounter]" ) {
     DC->offer(line);
   }
 
-  REQUIRE(DC->cardinality() == 5895);
-  REQUIRE(DC->elementsOffered() == 61884);
+  REQUIRE(DC->cardinality() == 10000);
+  REQUIRE(DC->elementsOffered() == 10000);
   
   file.close();
 }
