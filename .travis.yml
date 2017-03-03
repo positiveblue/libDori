@@ -2,6 +2,9 @@
 sudo: required
 dist: precise
 language: cpp
+# Compiler selection
+compiler:
+  - clang
 
 addons:
   apt:
