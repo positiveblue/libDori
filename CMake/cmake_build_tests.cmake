@@ -10,4 +10,8 @@ if(BUILD_TESTS)
 
   add_executable(dori-tests ${LDORI_TEST_SOURCE} ${LDORI_C_CPP_SOURCE} ${LDORI_THIRD_PARTY})
 
+  if(CMAKE_CXX_FLAGS)
+    set_target_properties(dori-tests PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
+  endif()
+
 endif()
