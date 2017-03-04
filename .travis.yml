@@ -26,10 +26,8 @@ matrix:
 
 before_install:
   - sudo apt-get update -qq
-  - $CC=$COMPILER
-  - $CXX=$COMPILER
-  - $CC --version
-  - $CXX --version
+  - unset CC
+  - unset CXX
   - curl https://cmake.org/files/v3.6/cmake-3.6.1-Linux-x86_64.tar.gz | sudo tar -x -z --strip-components 1 -C /usr
 
 script:
