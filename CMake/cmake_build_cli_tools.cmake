@@ -19,4 +19,10 @@ if(BUILD_CLI_TOOLS)
   add_executable(sample ${LDORI_SAMPLE_SOURCE} ${LDORI_C_CPP_SOURCE} ${LSTREAM_THIRD_PARTY})
   install_targets(/bin sample)
 
+
+  if(CMAKE_CXX_FLAGS)
+    set_target_properties(cardinality PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
+    set_target_properties(frequency PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
+    set_target_properties(sample PROPERTIES LINK_FLAGS ${CMAKE_CXX_FLAGS})
+  endif()
 endif()

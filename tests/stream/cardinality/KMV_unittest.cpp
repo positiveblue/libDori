@@ -12,9 +12,9 @@ TEST_CASE( "Creating KMV object", "[KMV]" ) {
   auto bigger_KMV_counter = dori::stream::KMV(64);
 }
 
-TEST_CASE( "KMV elementsOffered for D1.txt", "[KMV]" ) {
+TEST_CASE( "KMV elementsOffered for 1000.txt", "[KMV]" ) {
   // Data file path
-  std::string data_path = "../datasets/D1.txt";
+  std::string data_path = "../datasets/1000.txt";
   dori::stream::ICardinality* kmv = new dori::stream::KMV(32);
 
   std::ifstream file(data_path);
@@ -29,7 +29,7 @@ TEST_CASE( "KMV elementsOffered for D1.txt", "[KMV]" ) {
     kmv->offer(line);
   }
 
-  REQUIRE(kmv->elementsOffered() == 17221);
+  REQUIRE(kmv->elementsOffered() == 1000);
   
   file.close();
 }
