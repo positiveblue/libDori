@@ -38,7 +38,7 @@ include (${CMAKE_SOURCE_DIR}/CMake/cmake_compiler_flags.cmake)
 
 # Build Tests and examples
 # ==================
-# include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_tests.cmake)
+include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_tests.cmake)
 
 # Build CLI tools
 # ==================
