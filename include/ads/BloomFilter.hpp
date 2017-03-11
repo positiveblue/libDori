@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_HPP
-#define DORI_HPP
+#ifndef DORI_BLOOM_FILTER_HPP
+#define DORI_BLOOM_FILTER_HPP
 
-#include "ads/BitSet.hpp"
-#include "ads/BloomFilter.hpp"
+#include <cstdint>
+#include <math.h> 
+#include <string>
+#include <vector>
 
-#include "utils/utils.hpp"
+#include "BitSet.hpp"
+#include "../utils/hash/hash.hpp"
 
-#endif //DORI_HPP
+namespace dori { namespace stream {
+
+class BloomFilter {
+ public:
+  BloomFilter(std::uint64_t n_, double precision_=0.01);
+
+  bool contains(const std::string &str);
+
+  void insert(const std::string &str);
+
+  void clear();
+
+  std::uint64_t size(); 
+
+  ~BloomFilter();
+ private:
+  std::uint64_t nValues;
+  double precision;
+
+  std::uint64_t nBits;
+  std::uint64_t nHashFunctions;
+
+  dori::stream::BitSet* bitSet;
+  std::vector<dori::utils::Hasher*> *hashFunctions;
+};
+
+}  // namespace stream
+}  // namespace dori
+
+#endif //DORI_BLOOM_FILTER_HPP

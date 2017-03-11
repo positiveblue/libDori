@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +20,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_HPP
-#define DORI_HPP
+#ifndef DORI_BIT_SET_HPP
+#define DORI_BIT_SET_HPP
 
-#include "ads/BitSet.hpp"
-#include "ads/BloomFilter.hpp"
+#include <cstdint>
+#include <math.h> 
+#include <vector>
 
-#include "utils/utils.hpp"
+namespace dori { namespace stream {
 
-#endif //DORI_HPP
+class BitSet {
+ public:
+  BitSet(std::uint64_t size_);
+
+  bool getValue(std::uint64_t position);
+
+  void flip(std::uint64_t position);
+
+  void setOne(std::uint64_t position);
+
+  std::uint64_t size();
+
+  void clear();
+
+  ~BitSet();
+
+ private:
+    char mask(char position);
+
+    std::uint64_t _size;
+    std::vector<char>* bitSet; 
+};
+
+}  // namespace stream
+}  // namespace dori
+
+#endif //DORI_BLOOM_FILTER_HPP
