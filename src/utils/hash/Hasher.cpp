@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,9 +20,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_HASH_HPP
-#define DORI_HASH_HPP
+#include "utils/hash/Hasher.hpp"
 
-#include "Hasher.hpp"
+namespace dori { namespace utils {
 
-#endif //DORI_HASH_HPP
+  Hasher::Hasher() {
+    _seed = 42;
+  }
+
+  Hasher::Hasher(std::uint64_t seed) : _seed(seed) {}
+
+  std::uint64_t Hasher::hash64(const char *ptr, std::uint32_t length) {
+    char output[16];
+    MurmurHash3_x64_128(ptr, length, _seed, output);
+    // We are taking only the first 64 bits
+    return *((uint64_t *)output);
+  }
+
+  std::uint64_t Hasher::hash64(const std::string &str) {
+    return hash64(str.c_str(), str.size());
+  }
+
+  std::uint64_t Hasher::seed() {
+    return _seed;
+  }
+
+  void Hasher::seed(std::uint64_t seed) {
+    _seed = seed;
+  }
+
+}  // namespace utils
+}  // namespace dori

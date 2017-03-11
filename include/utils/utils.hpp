@@ -23,6 +23,6 @@
 #ifndef DORI_UTILS_HPP
 #define DORI_UTILS_HPP
 
-#include "./hash/hash.hpp"
+#include "hash/hash.hpp"
 
 #endif //DORI_UTILS_HPP

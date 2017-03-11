@@ -23,7 +23,6 @@
 #ifndef DORI_HPP
 #define DORI_HPP
 
-#include "./stream/stream.hpp"
-#include "./utils/utils.hpp"
+#include "utils/utils.hpp"
 
 #endif //DORI_HPP

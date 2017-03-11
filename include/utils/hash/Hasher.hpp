@@ -20,9 +20,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_HASH_HPP
-#define DORI_HASH_HPP
+#ifndef DORI_HASHER_HPP
+#define DORI_HASHER_HPP
 
-#include "Hasher.hpp"
+#include <cstdint>
+#include <string>
+#include "MurmurHash3.h"
 
-#endif //DORI_HASH_HPP
+namespace dori { namespace utils {
+
+class Hasher {
+ public:
+  Hasher();
+  Hasher(std::uint64_t seed);
+
+  std::uint64_t hash64(const char *ptr, std::uint32_t length);
+  std::uint64_t hash64(const std::string &str);
+
+  std::uint64_t seed();
+  void seed(std::uint64_t seed_);
+
+  std::uint64_t _seed;
+};
+
+}  // namespace utils
+}  // namespace dori
+
+#endif //DORI_HASHER_HPP
