@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "exception": "cpp",
+        "new": "cpp",
+        "cstdint": "cpp",
+        "hashtable": "cpp",
+        "random": "cpp",
+        "*.tcc": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "unordered_set": "cpp",
+        "typeinfo": "cpp"
+    }
+}
