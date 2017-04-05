@@ -27,7 +27,7 @@
 #include <math.h> 
 #include <vector>
 
-namespace dori { namespace stream {
+namespace dori { namespace sketches {
 
 class BitSet {
  public:
@@ -54,7 +54,7 @@ class BitSet {
     std::vector<char> _bitSet; 
 };
 
-}  // namespace stream
+}  // namespace sketches
 }  // namespace dori
 
 #endif //DORI_BLOOM_FILTER_HPP

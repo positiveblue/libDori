@@ -22,7 +22,7 @@
 
 #include "sketches/membership/BitSet.hpp"
 
-namespace dori { namespace stream {
+namespace dori { namespace sketches {
   BitSet::BitSet(std::uint64_t size_) : _size(size_) {
     _bitSet.resize(ceil(size_/8.0), 0);
   }
@@ -67,5 +67,5 @@ namespace dori { namespace stream {
     return 1 << position;
   }
 
-}  // namespace stream
+}  // namespace sketches
 }  // namespace dori

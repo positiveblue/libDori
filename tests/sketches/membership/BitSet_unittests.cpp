@@ -3,11 +3,11 @@
 
 
 TEST_CASE( "Creating BitSet object", "[BitSet]" ) {
-  dori::stream::BitSet BS = dori::stream::BitSet(66);
+  dori::sketches::BitSet BS = dori::sketches::BitSet(66);
 }
 
 TEST_CASE( "Checking the BitSet object", "[BitSet]" ) {
-  auto bs = dori::stream::BitSet(66);
+  auto bs = dori::sketches::BitSet(66);
 
   REQUIRE(bs.size() == 66);
 
