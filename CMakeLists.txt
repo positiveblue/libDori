@@ -31,22 +31,14 @@ file(GLOB_RECURSE LDORI_C_CPP_SOURCE RELATIVE "${PROJECT_SOURCE_DIR}"
 include (${CMAKE_SOURCE_DIR}/CMake/cmake_compiler_flags.cmake)
 
 
-# Build as Shared Library
-# ==================
-# include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_shared_library.cmake)
-
-
 # Build Tests and examples
 # ==================
 include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_tests.cmake)
 
-# Build CLI tools
-# ==================
-# include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_cli_tools.cmake)
 
 # libDori installation
 # ==================
-# include (${CMAKE_SOURCE_DIR}/CMake/cmake_libDori_installation.cmake)
+include (${CMAKE_SOURCE_DIR}/CMake/cmake_libDori_installation.cmake)
 
 
 
