@@ -23,8 +23,6 @@
 #ifndef DORI_HPP
 #define DORI_HPP
 
-#include "ads/BitSet.hpp"
-#include "ads/BloomFilter.hpp"
 
 #include "utils/utils.hpp"
 
