@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2016 Jordi Montes Sanabria
+// Copyright (c) 2017 Jordi Montes Sanabria
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,11 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef DORI_HPP
-#define DORI_HPP
+#ifndef DORI_SKETCHES_HPP
+#define DORI_SKETCHES_HPP
 
+#include "similarity/similarity.hpp"
 
-#include "sketches/sketches.hpp"
-#include "utils/utils.hpp"
-
-#endif //DORI_HPP
+#endif //DORI_SKETCHES_HPP
