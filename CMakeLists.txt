@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0) # CMake version check
 
-# we don't allow libStream to be build in the source directory
+# we don't allow libDori to be build in the source directory
 set (CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 set (DORI_VERSION_MAJOR 0)
