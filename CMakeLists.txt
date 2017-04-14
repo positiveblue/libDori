@@ -35,6 +35,10 @@ include (${CMAKE_SOURCE_DIR}/CMake/cmake_compiler_flags.cmake)
 # ==================
 include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_tests.cmake)
 
+# Build CLI tools
+# ==================
+include (${CMAKE_SOURCE_DIR}/CMake/cmake_build_cli_tools.cmake)
+
 
 # libDori installation
 # ==================
