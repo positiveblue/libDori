@@ -26,7 +26,7 @@
 #include<map>
 #include<vector>
 #include<random>
-
+#include<cstdint>
 #include "../../utils/hash/hash.hpp"
 
 using dori::utils::Hasher;
@@ -42,7 +42,7 @@ class MinHash {
     _init = false;
 
     _hashFunctions.resize(size_);
-    _minHashes.resize(size_);
+    _minHashes.resize(size_, INT64_MAX);
     _values.resize(size_);
 
     for (auto &x : _hashFunctions) {
@@ -53,9 +53,9 @@ class MinHash {
   MinHash(std::vector<std::uint64_t> seeds_) : _size(seeds_.size()) {
     _init = false;
 
-    _hashFunctions.resize(_size);
-    _minHashes.resize(_size);
-    _values.resize(_size);
+    _hashFunctions.resize(seeds_.size());
+    _minHashes.resize(seeds_.size(), INT64_MAX);
+    _values.resize(seeds_.size());
 
     for (int i = 0; i < seeds_.size(); ++i) {
       _hashFunctions[i] = Hasher{seeds_[i]};
@@ -67,20 +67,9 @@ class MinHash {
       auto hash = _hashFunctions[i].hash64(element);
       offer(element, i, hash);
     }
+    _init=true;
   }
 
-  bool offer(const T &element, std::uint64_t position_, std::uint64_t hash_) {
-    if (!_init) {
-      _init = true;
-      _minHashes[position_] = hash_;
-      _values[position_] = std::move(element);
-    } else {
-      if (hash_ < _minHashes[position_]) {
-        _minHashes[position_]= hash_;
-        _values[position_] = std::move(element);
-      }
-    }  
-  }
 
   bool initialized() const {
     return _init;
@@ -94,17 +83,16 @@ class MinHash {
     return _minHashes;
   }
 
-  double compare(const MinHash<T> &mh ) const {
-    auto mhValues = mh.hashValues();
-
-    if (mh.size() != _size || !mh.initialized() || this->initialized())
+  double compare(const MinHash<T> &mh ) const {    
+    if (mh.size() != _size || !mh.initialized() || !this->initialized())
       return 0.0;
     
+    auto mhValues = mh.hashValues();
     int common = 0;
 
-    for (int i = 0; i < _size; ++i) {
-
-    }
+    for (int i = 0; i < _size; ++i)
+      if (mhValues[i] == _minHashes[i])
+        ++common;
 
     int total = (_size << 1) - common;
     return ((double)common)/total;
@@ -115,6 +103,18 @@ class MinHash {
   ~MinHash() {}
 
  private:
+  bool offer(const T &element, std::uint64_t position_, std::uint64_t hash_) {
+    if (!_init) {
+      _minHashes[position_] = hash_;
+      _values[position_] = std::move(element);
+    } else {
+      if (hash_ < _minHashes[position_]) {
+        _minHashes[position_]= hash_;
+        _values[position_] = std::move(element);
+      }
+    }  
+  }
+
   // Have we processed some element or not
   bool _init;
 

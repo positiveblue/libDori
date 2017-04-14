@@ -9,6 +9,17 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "unordered_set": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "bitset": "cpp",
+        "cmath": "cpp",
+        "cstdlib": "cpp",
+        "functional": "cpp",
+        "utility": "cpp",
+        "vector": "cpp",
+        "set": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "fstream": "cpp",
+        "cstdio": "cpp"
     }
 }
