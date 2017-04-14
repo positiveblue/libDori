@@ -50,6 +50,18 @@ class MinHash {
     }
   }
 
+  MinHash(std::vector<std::uint64_t> seeds_) : _size(seeds_.size()) {
+    _init = false;
+
+    _hashFunctions.resize(_size);
+    _minHashes.resize(_size);
+    _values.resize(_size);
+
+    for (int i = 0; i < seeds_.size(); ++i) {
+      _hashFunctions[i] = Hasher{seeds_[i]};
+    }
+  }
+
   bool offer(const T &element) {
     for (auto i = 0; i < _size; ++i) {
       auto hash = _hashFunctions[i](element);
@@ -79,10 +91,14 @@ class MinHash {
   ~MinHash() {}
 
  private:
+  // Have we processed some element or not
   bool _init;
-  std::uint64_t _size;
 
+  // How many hash functions
+  std::uint64_t _size;
   std::vector<Hasher> _hashFunctions;
+
+  // hash(_values[i]) == _minHashes[i]
   std::vector<std::uint64_t> _minHashes;
   std::vector<T> _values;
 };
