@@ -64,7 +64,7 @@ class MinHash {
 
   bool offer(const T &element) {
     for (auto i = 0; i < _size; ++i) {
-      auto hash = _hashFunctions[i](element);
+      auto hash = _hashFunctions[i].hash64(element);
       offer(element, i, hash);
     }
   }
@@ -75,15 +75,39 @@ class MinHash {
       _minHashes[position_] = hash_;
       _values[position_] = std::move(element);
     } else {
-      if (hash_ < _minHashes[position_].first) {
+      if (hash_ < _minHashes[position_]) {
         _minHashes[position_]= hash_;
         _values[position_] = std::move(element);
       }
     }  
   }
 
-  std::uint64_t size() {
+  bool initialized() const {
+    return _init;
+  }
+
+  std::uint64_t size() const {
     return _size;
+  }
+
+  std::vector<std::uint64_t> hashValues() const {
+    return _minHashes;
+  }
+
+  double compare(const MinHash<T> &mh ) const {
+    auto mhValues = mh.hashValues();
+
+    if (mh.size() != _size || !mh.initialized() || this->initialized())
+      return 0.0;
+    
+    int common = 0;
+
+    for (int i = 0; i < _size; ++i) {
+
+    }
+
+    int total = (_size << 1) - common;
+    return ((double)common)/total;
   }
 
   void clear() {}
