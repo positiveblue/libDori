@@ -27,6 +27,8 @@
 #include<vector>
 #include<random>
 #include<cstdint>
+#include <math.h>
+#include<iostream>
 #include "../../utils/hash/hash.hpp"
 
 using dori::utils::Hasher;
@@ -35,96 +37,107 @@ namespace dori { namespace sketches {
 
 template<typename T>
 class MinHash {
+
+  typedef std::vector<std::vector<uint64_t> > uint64Matrix_t;
+
  public:
-  MinHash(std::uint64_t size_) : _size(size_) {
+  MinHash(std::uint64_t nFunctions_, std::uint64_t nBuckets_) : 
+   _nFunctions(nFunctions_), _nBuckets(nBuckets_) {
+
+    // Initialize hashFunctions
     std::mt19937 gen;
 
-    _init = false;
-
-    _hashFunctions.resize(size_);
-    _minHashes.resize(size_, INT64_MAX);
-    _values.resize(size_);
-
+    _hashFunctions.resize(nFunctions_);
+    
     for (auto &x : _hashFunctions) {
       x = Hasher{gen()};
     }
+
+    this->_resizeMatrices();
   }
 
-  MinHash(std::vector<std::uint64_t> seeds_) : _size(seeds_.size()) {
-    _init = false;
+  MinHash(std::vector<std::uint64_t> seeds_, std::uint64_t nBuckets_) : 
+    _nFunctions(seeds_.size()), _nBuckets(nBuckets_) {
 
-    _hashFunctions.resize(seeds_.size());
-    _minHashes.resize(seeds_.size(), INT64_MAX);
-    _values.resize(seeds_.size());
+    _hashFunctions.resize(_nFunctions);
 
     for (int i = 0; i < seeds_.size(); ++i) {
       _hashFunctions[i] = Hasher{seeds_[i]};
     }
+
+    this->_resizeMatrices();
   }
 
   bool offer(const T &element) {
-    for (auto i = 0; i < _size; ++i) {
+    for (auto i = 0; i < _nFunctions; ++i) {
       auto hash = _hashFunctions[i].hash64(element);
-      offer(element, i, hash);
+      _offer(element, i, hash);
     }
-    _init=true;
   }
 
-
-  bool initialized() const {
-    return _init;
-  }
-
+  // Expose internals
   std::uint64_t size() const {
     return _size;
   }
 
-  std::vector<std::uint64_t> hashValues() const {
+  std::uint64_t nFunctions() const {
+    return _nFunctions;
+  }
+
+  std::uint64_t nBuckets() const {
+    return _nBuckets;
+  }
+
+  uint64Matrix_t minHashValues() const {
     return _minHashes;
   }
 
-  double compare(const MinHash<T> &mh ) const {    
-    if (mh.size() != _size || !mh.initialized() || !this->initialized())
-      return 0.0;
-    
-    auto mhValues = mh.hashValues();
-    int common = 0;
+  void clear() {
 
-    for (int i = 0; i < _size; ++i)
-      if (mhValues[i] == _minHashes[i])
-        ++common;
-
-    int total = (_size << 1) - common;
-    return ((double)common)/total;
   }
-
-  void clear() {}
-
-  ~MinHash() {}
 
  private:
-  bool offer(const T &element, std::uint64_t position_, std::uint64_t hash_) {
-    if (!_init) {
-      _minHashes[position_] = hash_;
-      _values[position_] = std::move(element);
-    } else {
-      if (hash_ < _minHashes[position_]) {
-        _minHashes[position_]= hash_;
-        _values[position_] = std::move(element);
-      }
-    }  
+
+   void _resizeMatrices() {
+    _size = _nFunctions*_nBuckets;
+
+    _indexSize = log2(_nBuckets);
+
+    // Resize _minHashes and _values matrices
+    _minHashes.resize(_nFunctions);
+
+    for (auto &x : _minHashes) {
+      x.resize(_nBuckets, INT64_MAX);
+    }
   }
 
-  // Have we processed some element or not
-  bool _init;
+  std::uint64_t _getIndex(std::uint64_t hash) {
+    return hash >> (64 - (_indexSize));
+  }
+
+  std::uint64_t _getOffset(std::uint64_t hash) {
+    return hash & (INT64_MAX >> (_indexSize));
+  }
+
+  bool _offer(const T &element, std::uint64_t function, std::uint64_t hash_) {
+    auto bucket = _getIndex(hash_);
+    auto x = _getOffset(hash_);
+
+    if (x < _minHashes[function][bucket]) {
+        _minHashes[function][bucket] = x;
+      }
+  }
+
 
   // How many hash functions
+  std::uint64_t _nFunctions;
+  std::uint64_t _nBuckets;
+  std::uint64_t _indexSize;
   std::uint64_t _size;
   std::vector<Hasher> _hashFunctions;
 
-  // hash(_values[i]) == _minHashes[i]
-  std::vector<std::uint64_t> _minHashes;
-  std::vector<T> _values;
+  // TODO: Explain this
+  uint64Matrix_t _minHashes;
 };
 
 }  // namespace sketches
