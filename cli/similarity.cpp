@@ -33,7 +33,7 @@ Options parse_options(int argc, char* argv[]) {
   
   options.add_options()
     ("s,size", "Aveilable memory", cxxopts::value<int>()
-      ->default_value("100"))
+      ->default_value("9"))
     ("help", "Print help")
   ;
 
@@ -52,8 +52,8 @@ Options parse_options(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
   Options options = parse_options(argc, argv);
 
-  dori::sketches::MinHash<std::string> MHFileOne {(std::uint64_t)options.size};
-  dori::sketches::MinHash<std::string> MHFileTwo {(std::uint64_t)options.size};
+  dori::sketches::MinHash<std::string> MHFileOne {(std::uint64_t) options.size, 16};
+  dori::sketches::MinHash<std::string> MHFileTwo {(std::uint64_t) options.size, 16};
 
   std::string word;
 
@@ -69,5 +69,5 @@ int main(int argc, char* argv[]) {
     MHFileTwo.offer(word);
   }
 
-  std::cout << MHFileOne.compare(MHFileTwo) << std::endl;
+  //std::cout << MHFileOne.compare(MHFileTwo) << std::endl;
 }
